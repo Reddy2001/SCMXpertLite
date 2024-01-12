@@ -71,7 +71,8 @@ async def signin(request: Request, forms: OAuth2PasswordRequestForm = Depends())
         # return template.TemplateResponse("dashboard.html",{"request":request,"access_token":access_token})
 
         access_token = create_jwt_token(user)
-        # print("access_token",access_token)
+        # prints access token on terminal
+        print("access_token",access_token)
         
         # response = template.TemplateResponse("Dashboard.html",{"request":request})
         response= RedirectResponse("/dashboard", status_code=302)
