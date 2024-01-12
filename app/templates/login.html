@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="/static/pictures/icon.webp" type="image/x-icon">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="/static/css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+
+<body id="body">
+    <div id="full_body">
+        <div class="background"></div>
+
+        <div class="navbar">
+            <div class="image">
+                <img src="/static/pictures/logo.png" alt="Logo" height="70px" width="100px">
+            </div>
+            <div class="btn">
+                <div class="home">
+                    <button><a href="/" id="btn2">Home</a></button>
+                </div>
+                <div class="register">
+                    <button><a href="/signup" id="btn1">Register</a></button>
+                </div>
+                <div class="signin">
+                    <button><a href="/signin" id="btn2">SignIn</a></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="line">
+            <hr>
+        </div>
+
+        <!-- error message printing -->
+        <div class="visible">
+            <div id="error">{%if message%}{{message}}{%endif%}</div>
+        </div>
+
+        <div class="container">
+            <h1>SCMXPerLite</h1>
+            <h2>Login in now</h2>
+            <form id="signin-form" action="/signin" method="post">
+
+                <div class="fields">
+                    <label for="mail">Email Address*</label>
+                    <input type="email" id="mail" name="username" placeholder="Enter your Email Address" required>
+                </div>
+                <div class="fields">
+                    <label for="password">Password*</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your Password" required>
+                    <i class="far fa-eye-slash" id="eye" style="position: absolute; right: 55%; top:51%;"
+                        onclick="togglePassword()"> Show Password</i>
+                </div>
+
+                <!-- google recaptcha -->
+                <div class="g-recaptcha" data-sitekey="6LdQQDcpAAAAAKU3bgSg3lAZ2_9TF2GcSy_0hYNg"></div>
+
+                <div class="submit">
+                    <button type="submit" onclick="check_recaptcha()">Sign In</button>
+                </div>
+                <hr id="inner_line">
+                <p>Don't have an account? <a href="/signup">Register</a></p>
+                <p><a href="/forgotPassword">Forgot your Password?</a></p>
+            </form>
+        </div>
+    </div>
+
+
+
+
+    <script src="/static/javaScript/login.js"> </script>
+</body>
+
+</html>

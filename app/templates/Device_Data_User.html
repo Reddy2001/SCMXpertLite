@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/static/pictures/icon.webp" type="image/x-icon">
+    <!-- Boxicons -->
+    <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel='stylesheet'>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="/static/css//Device_Data_User.css">
+
+    <title>Dashboard | Not Authorized</title>
+</head>
+
+<body>
+
+
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <!-- <i class='bx bxs-smile'></i> -->
+            <img src="/static/pictures/icon.webp" alt="" height="30px" width="30px" style="margin-left: 20px;">
+            <span class="text" style="margin-left: 10px;">SCMXpertLite</span>
+        </a>
+        <ul class="side-menu top">
+            <li>
+                <a href="/dashboard">
+                    <i class='bx bxs-dashboard'></i>
+                    <span class="text">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="/myAccount">
+                    <i class='bx bxs-group'></i>
+                    <span class="text">My Account</span>
+                </a>
+            </li>
+            <li>
+                <a href="myShipment">
+                    <i class='bx bxs-shopping-bag-alt'></i>
+                    <span class="text">My Shipment</span>
+                </a>
+            </li>
+            <li>
+                <a href="/newShipment">
+                    <i class='bx bxs-truck'></i>
+                    <span class="text">New Shipment</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="/deviceData">
+                    <i class='bx bxs-doughnut-chart'></i>
+                    <span class="text">Device Data</span>
+                </a>
+            </li>
+
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="/logout" class="logout" onclick="signOut()">
+                    <i class='bx bxs-log-out-circle'></i>
+                    <span class="text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+
+
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <h2>Device Data Stream [Not Authorized]</h2>
+        </nav>
+        <!-- NAVBAR -->
+
+
+    </section>
+    <!-- CONTENT -->
+    
+    <div class="container">
+        <div class="heading" style="display: none;">
+            <h3>&#128577; Sorry!.. <p>{{name}}</p> </h3>
+        </div>
+        <div class="content" style="display: none;">
+            <p>You are not Authorized to Access this page</p>
+        </div>
+        <div class="redirect" style="display: none;">
+            <h3>Contact Admin</h3>
+        </div>
+    </div>
+
+    <script src="/static/javaScript/Device_Data_User.js"></script>
+</body>
+
+</html>

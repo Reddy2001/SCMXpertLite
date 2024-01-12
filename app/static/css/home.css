@@ -1,0 +1,127 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+ 
+.background {
+    position: relative;
+    background: linear-gradient(rgba(255, 0, 0, 0.425),rgba(255, 255, 255, 0.356),rgba(0, 0, 255, 0.267));
+    background-size: cover;
+    background-position: center;
+    height: 91.7vh;
+}
+ 
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 130px;
+    padding-right: 130px;
+    background-color: rgba(183,231,235,255);
+}
+ 
+.btn{
+    display: flex;
+    align-items: center;
+}
+ 
+#btn1{
+    color: white;
+}
+ 
+#btn2{
+    color:mediumblue;
+}
+.signin button {
+    padding: 10px 20px;
+    background-color: white;
+    border: none;
+    border-radius: 4px;
+    margin-left: 20px;
+}
+ 
+.register button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+}
+ 
+.register button a{
+    color: white;
+}
+ 
+.home button {
+    padding: 10px 20px;
+    background-color: rgb(163, 227, 166);
+    border: none;
+    border-radius: 4px;
+    margin-right: 20px;
+}
+ 
+.register button:hover,
+.signin button:hover,
+.home button:hover,
+.btn1 button:hover{
+    scale: 1.1;
+}
+ 
+.line hr{
+    border-width: 2px;
+    border-color: lightgreen;
+}
+ 
+.feedback button{
+    padding: 5px 10px;
+    color: white;
+    background-color: lightblue;
+    border: 1px solid white;
+    border-radius: 3px;
+    font-size: large;
+    transform: rotate(90deg);
+    position: absolute;
+    z-index: 2;
+    left: 1850px;
+    top: 500px;
+}
+
+.feedback button:hover{
+    scale: 1.1;
+}
+
+a{
+    text-decoration: none;
+}
+.background{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.cont1{
+    width: 800px;
+}
+.heading h1{
+    font-size: 40px;
+    color:rgb(241, 35, 35);
+    margin-bottom: 15px;
+}
+h1{
+    text-shadow: 0 0 5px #f82020;
+}
+.doc p{
+    font-size: larger;
+    color: black;
+}
+.btn1 button{
+    padding: 10px 20px;
+    background-color: rgb(255, 0, 55);
+    border: none;
+    border-radius: 6px;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+.btn1 button a{
+    color:white;
+    font-size: 16px;
+}
+

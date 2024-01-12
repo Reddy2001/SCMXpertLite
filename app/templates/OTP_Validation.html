@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/static/pictures/icon.webp" type="image/x-icon">
+    <title>Signin | OTP Validation</title>
+    <link rel="stylesheet" href="/static/css/OTP_Validation.css">
+</head>
+<body>
+    <div class="container">
+        <div id="error">{%if error%}{{error}}{%endif%}</div>
+        <div class="popup">
+            <h2>OTP Validation</h2>
+            <p>Enter your OTP to change your Password</p>
+            <form action="/otpValidation" method="Post">
+                <input type="number" name="User_otp" id="otp" placeholder="Enter valid OTP" required>
+                <button type="submit">Validate OTP</button>
+            </form>
+            <div class="goto">
+                <p>&#8592; Goto <a href="/signin">Login</a> Page </p>
+            </div>
+        </div>
+    </div>
+ 
+    
+    
+    <script>
+
+        // Getting Error Message
+        const errorMessage = document.getElementById('error');
+
+        // Hiding the Error Message
+        function hideErrorMessage() {
+            errorMessage.style.display = 'none';
+        }
+
+        // Delay in milliseconds (e.g., 3000 for 3 seconds)
+        const delay = 3000;
+
+        // Hiding Error message after Delay time
+        setTimeout(hideErrorMessage, delay);
+    </script>
+</body>
+</html>
+
+
+

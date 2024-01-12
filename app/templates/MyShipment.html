@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/static/pictures/icon.webp" type="image/x-icon">
+    <!-- Boxicons -->
+    <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel='stylesheet'>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="/static/css/MyShipment.css">
+
+    <title>Dashboard | My Shipment</title>
+</head>
+
+<body>
+
+
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <!-- <i class='bx bxs-smile'></i> -->
+            <img src="/static/pictures/icon.webp" alt="" height="30px" width="30px" style="margin-left: 20px;">
+            <span class="text" style="margin-left: 10px;">SCMXpertLite</span>
+        </a>
+        <ul class="side-menu top">
+            <li>
+                <a href="/dashboard">
+                    <i class='bx bxs-dashboard'></i>
+                    <span class="text">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="/myAccount">
+                    <i class='bx bxs-group'></i>
+                    <span class="text">My Account</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="/myShipment">
+                    <i class='bx bxs-shopping-bag-alt'></i>
+                    <span class="text">My Shipment</span>
+                </a>
+            </li>
+            <li>
+                <a href="/newShipment">
+                    <i class='bx bxs-truck'></i>
+                    <span class="text">New Shipment</span>
+                </a>
+            </li>
+            <li>
+                <a href="/deviceData">
+                    <i class='bx bxs-doughnut-chart'></i>
+                    <span class="text">Device Data</span>
+                </a>
+            </li>
+
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="/logout" class="logout" onclick="signOut()">
+                    <i class='bx bxs-log-out-circle'></i>
+                    <span class="text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+
+
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <h2>Hi  <b style="color: blue;">{{name}}</b>, These are Shipment Details</h2>
+        </nav>
+        <!-- NAVBAR -->
+
+        <!-- MAIN -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>My Shipments</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="/dashboard">Dashboard</a>
+                        </li>
+                        <li><i class='bx bx-chevron-right'></i></li>
+                        <li>
+                            <a class="active" href="/myShipment">My Shipments</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </main>
+        <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
+    <div class="table_data">
+        <table>
+            <thead>
+                <tr>
+                    <th>Shipment Number</th>
+                    <th>Container Number</th>
+                    <th>Route Details</th>
+                    <th>Goods Type</th>
+                    <th>Device Name</th>
+                    <th>Delivery Date</th>
+                    <th>PO Number</th>
+                    <th>Delivery Number</th>
+                    <th>NDC Number</th>
+                    <th>Batch Id</th>
+                    <th>Serial Number</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for items in ShipmentData %}
+                <tr>
+                    <td data-label="Shipment_Number">{{ items.ShipmentNumber }}</td>
+                    <td data-label="Container Number">{{ items.ContainerNumber }}</td>
+                    <td data-label="Route Details">{{ items.RouteDetails }}</td>
+                    <td data-label="Goods Type">{{ items.GoodsType }}</td>
+                    <td data-label="Device Name">{{ items.DeviceName }}</td>
+                    <td data-label="Delivery Date">{{ items.DeliveryDate }}</td>
+                    <td data-label="PO Number">{{ items.PO_Number }}</td>
+                    <td data-label="Delivery Number">{{ items.DeliveryNumber }}</td>
+                    <td data-label="NDC Number">{{ items.NDC_Number }}</td>
+                    <td data-label="Batch Id">{{ items.BatchId }}</td>
+                    <td data-label="Serial Number">{{ items.SerialNumber }}</td>
+                </tr>
+                {% endfor %}
+
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <script src="/static/javaScript/MyShipment.js"></script>
+</body>
+
+</html>

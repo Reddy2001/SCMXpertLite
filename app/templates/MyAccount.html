@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/static/pictures/icon.webp" type="image/x-icon">
+    <!-- Boxicons -->
+    <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel='stylesheet'>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="/static/css/MyAccount.css">
+
+    <title>Dashboard | My Account</title>
+</head>
+
+<body>
+
+
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <!-- <i class='bx bxs-smile'></i> -->
+            <img src="/static/pictures/icon.webp" alt="" height="30px" width="30px" style="margin-left: 20px;">
+            <span class="text" style="margin-left: 10px;">SCMXpertLite</span>
+        </a>
+        <ul class="side-menu top">
+            <li>
+                <a href="/dashboard">
+                    <i class='bx bxs-dashboard'></i>
+                    <span class="text">Dashboard</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="/myAccount">
+                    <i class='bx bxs-group'></i>
+                    <span class="text">My Account</span>
+                </a>
+            </li>
+            <li>
+                <a href="myShipment">
+                    <i class='bx bxs-shopping-bag-alt'></i>
+                    <span class="text">My Shipment</span>
+                </a>
+            </li>
+            <li>
+                <a href="/newShipment">
+                    <i class='bx bxs-truck'></i>
+                    <span class="text">New Shipment</span>
+                </a>
+            </li>
+            <li>
+                <a href="/deviceData">
+                    <i class='bx bxs-doughnut-chart'></i>
+                    <span class="text">Device Data</span>
+                </a>
+            </li>
+
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="/logout" class="logout" onclick="signOut()">
+                    <i class='bx bxs-log-out-circle'></i>
+                    <span class="text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+
+
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <h2>Hi  <b style="color: blue;">{{name}}</b>, These are your details</h2>
+        </nav>
+        <!-- NAVBAR -->
+
+        <!-- MAIN -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>My Account</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="#">Dashboard</a>
+                        </li>
+                        <li><i class='bx bx-chevron-right'></i></li>
+                        <li>
+                            <a class="active" href="/myAccount">My Account</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+        <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
+
+    <div class="card">
+        <i class="bx bxs-user-circle"></i>
+        <table >
+            <tr>
+                <th>Name</th>
+                <th>:</th>
+                <td> {{name}} </td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <th>:</th>
+                <td>{{email}}</td>
+            </tr>
+            <tr>
+                <th>Role</th>
+                <th>:</th>
+                <td id="id">{{role}}</td>
+            </tr>
+        </table>
+
+        <div class="btn">
+            <button><a href="/passwordChanging">Change Password</a></button>
+        </div>
+        <div id="RoleChange">
+            <button><a href="/changeUserRole">Change User Role</a></button>
+        </div>
+
+    </div>
+
+    <script src="/static/javaScript/MyAccount.js"></script>
+</body>
+
+</html>
