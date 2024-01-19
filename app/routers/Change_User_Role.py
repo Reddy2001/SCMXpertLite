@@ -4,6 +4,7 @@ from fastapi import Request, Depends,Form
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
+# importing all variables in config file
 from config.config import *
 
 # Importing get_current_user_from_cookie method to take the username,email and expired time
@@ -33,9 +34,9 @@ async def Authenticate_User(current_user: dict = Depends(get_current_user_from_c
 
 # Change_User_Role router to display Change_User_Role page 
 @router.get("/changeUserRole", response_class=HTMLResponse, dependencies=[Depends(Authenticate_User)])
-def get_ChangeUserROle(request: Request):
+def get_ChangeUserROle(request: Request,current_user: dict = Depends(get_current_user_from_cookie)):
     try:
-        return template.TemplateResponse("Change_User_Role.html", {"request": request})
+        return template.TemplateResponse("Change_User_Role.html", {"request": request,"name":current_user['username']})
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}") 
 
@@ -48,10 +49,10 @@ def post_ChangeUserROle(request: Request,
     try:
         # Fletching user details from DB based on email
         user=Users.find_one({"Email":Email})
-        print("user -- >",user)
+        # print("user -- >",user)
         # Checking the user is Exists based on the given Email
         if user is None:
-            return template.TemplateResponse("Change_User_Role.html", {"request": request,"message":"Email Doesn't Exist.."})
+            return template.TemplateResponse("Change_User_Role.html", {"request": request,"error":"Email Doesn't Exist.."})
         
         # If user exists admin will change the role of user
         else:

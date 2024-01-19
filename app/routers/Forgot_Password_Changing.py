@@ -1,15 +1,18 @@
 from fastapi import APIRouter
-from fastapi import Request,Form
+from fastapi import Request,Form,HTTPException
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
+# importing storing_Email class to get email
 from routers.Forgot_Password import storing_Email
 
 # importing all variables in config file
 from config.config import *
 
+# importing CryptContext class to hash the password 
 from passlib.context import CryptContext
 
+# importing "re" module in Python provides regular expression matching operations[It is used for password strength checking ]
 import re
 
 
@@ -39,7 +42,7 @@ def get_forgotPasswordChanging(request: Request):
 def post_forgotPasswordChanging(request: Request, Password:str = Form(...), Re_type_Password:str = Form(...)):
     try:
         user=Users.find_one({"Email":storing_Email.EmailId})
-        print(user)
+        # print(user)
         # Validating Password and Re_Type Password is same or not
         if(Password != Re_type_Password):
             return template.TemplateResponse("Forgot_Password_Changing.html",{"request":request,"error":"Password and Re-type Password should be same"})
@@ -53,7 +56,7 @@ def post_forgotPasswordChanging(request: Request, Password:str = Form(...), Re_t
             return template.TemplateResponse("Password_Changing.html", {"request": request, "error":"Password must contain Capital letters, Small letters and Special character......."})
         
         else:
-            # Hashing the password
+            # Hashing password
             hash_password = pwd_context.hash(Password)
 
             #Updating the new password on the database
@@ -61,7 +64,7 @@ def post_forgotPasswordChanging(request: Request, Password:str = Form(...), Re_t
             return template.TemplateResponse("Goto_login.html",{"request":request})
 
 
-    except Exception as updated:
-        return template.TemplateResponse("Forgot_Password_Changing.html", {"request": request, "updated_msg": updated})
+    except Exception :
+        raise HTTPException(status_code=500, detail="Internal Server Error") 
 
             

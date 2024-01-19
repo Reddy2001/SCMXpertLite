@@ -35,11 +35,6 @@ html {
     overflow-x: hidden;
 }
 
-body.dark {
-    --light: #0C0C1E;
-    --grey: #060714;
-    --dark: #FBFBFB;
-}
 
 body {
     background: var(--grey);
@@ -173,6 +168,7 @@ body {
     scale: 1.2;
     border-radius: 25%;
 }
+
 #sidebar .side-menu li a .bx {
     min-width: calc(60px - ((4px + 6px) * 2));
     display: flex;
@@ -219,84 +215,62 @@ body {
 /* NAVBAR */
 
 
-.OuterContainer{
-    width: 1400px;
-    height: 800px;
-    border: 1px solid white;
-    margin-top: 40px;
-    margin-left: 400px;
-    background-color: white;
-    border-radius: 30px;
-    box-shadow: 0 0 20px var(--light-blue);
+
+
+
+/* MAIN */
+#content main {
+    width: 100%;
+    padding: 36px 24px;
+    font-family: var(--poppins);
+    max-height: calc(100vh - 56px);
+    overflow-y: auto;
 }
-.innerContainer{
-    border: 1px solid #eecaa1d8;
-    margin: 50px 100px 30px;
-    padding: 30px;
-    font-family:Arial, Helvetica, sans-serif ;
-    background-color:var(--light-blue);
-    border-radius: 20px;
-}
-.innerContainer .heading{
-    color: white;
-    text-shadow: 0 0 10px black;
-    text-align: center;
-    font-size: large;
-}
-.innerContainer .selection{
+
+#content main .head-title {
     display: flex;
-    justify-content: space-evenly;
-    margin-top: 40px;
-    font-size: larger;
-}
-.innerContainer .selection .input{
-    position:relative;
-    right: 60px;
-}
-.innerContainer .selection label{
-    font-size: 22px;
-    margin-bottom: 30px;
-    position: relative;
-    left: 10px;
-    bottom: 10px;
-}
-.innerContainer .selection select{
-    width: 350px;
-    padding: 10px 10px;
-    font-size: 19px;
-    border: none;
-    border-radius: 10px;
-}
-.innerContainer .btn button{
-    padding: 10px 80px;
-    font-size: large;
-    color: white;
-    background-color: #3C91E6;
-    border: none;
-    border-radius: 10px;
-    position: relative;
-    top: 30px;
-}
-.innerContainer .btn button:hover{
-    scale: 1.1;
+    align-items: center;
+    justify-content: space-between;
+    grid-gap: 16px;
+    flex-wrap: wrap;
 }
 
-.innerTable {
-    max-width: 100%;
-    overflow-x: auto;
-    height: 420px;
-}
-
-table{
-    margin-left: 20px;
+#content main .head-title .left h1 {
+    font-size: 36px;
+    font-weight: 600;
     margin-bottom: 10px;
+    color: rgba(255, 0, 0, 0.764);
+}
+
+#content main .head-title .left .breadcrumb {
+    display: flex;
+    align-items: center;
+    grid-gap: 16px;
+}
+
+#content main .head-title .left .breadcrumb li {
+    color: var(--dark);
+}
+
+
+/* Table_data */
+
+.table_data{
+    margin-left: 290px;
+    margin-top: 40px;
+    width: 1600px;
+    height: 510px;
+    overflow: auto;
+    font-family:Arial, Helvetica, sans-serif ;
+    
+}
+table{
     padding: 5px 10px;
     background-color: rgba(245, 234, 214, 0.849);
-    width: 1360px;
+    width: 100%;
     border-collapse: collapse;
     border-radius: 10px;
     text-align: center;
-    font-family:Arial, Helvetica, sans-serif ;
 }
 th,td{
     padding: 10px 17px;
@@ -308,16 +282,5 @@ th{
     background-color: var(--blue);
     color: white;
     position: sticky;
-    top: 0px;
-}
-
-td{
-    background-color: var(--grey);
-}
-
-.id h2{
-    color: rgb(245, 151, 10);
-    text-align: center;
-    margin-bottom: 15px;
-
+    top: 0;
 }

@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from fastapi import Request,Form,Depends,HTTPException
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse,RedirectResponse
 from routers.jwt import get_current_user_from_cookie
 
 
@@ -42,12 +42,15 @@ def post_feedback(request: Request,
                   rating: str = Form(...), 
                   opinion: str = Form(...),
                   current_user: dict = Depends(get_current_user_from_cookie)):
-    # if Feedback.find({}):
-        # return template.TemplateResponse("Dashboard.html",{"request":request,"error":"Your Feedback already submitted...."})
-    feedback={
-        "Email":current_user["email"],
-        "rating":rating,
-        "opinion":opinion
-    }
-    Feedback.insert_one(feedback)
-    return template.TemplateResponse("Dashboard.html",{"request":request,"success":"Thank you for your Feedback...."})
+    try:
+        feedback={
+            "name":current_user['username'],
+            "Email":current_user["email"],
+            "rating":rating,
+            "opinion":opinion
+        }
+        Feedback.insert_one(feedback)
+        response= RedirectResponse("/dashboard", status_code=302)
+        return response
+    except Exception:
+        raise HTTPException(status_code=500, detail=f"Internal Server Error") 

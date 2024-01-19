@@ -28,12 +28,12 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="signin")
 
 
 
-'''Using cookie'''
+'''Using cookies to Store the Jwt Token'''
 
 
 # Function to create JWT token
 def create_jwt_token(user):
-    # print(user)
+
     credentials = {"sub": user["UserName"],"Email":user["Email"],"Role":user["Role"]}
     expires = timedelta(minutes=JWT_Token.EXPIRE_MINUTES)
     to_encode = credentials.copy()

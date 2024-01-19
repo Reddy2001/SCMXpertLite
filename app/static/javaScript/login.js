@@ -15,17 +15,17 @@ function togglePassword() {
 }
 
 
+// function check_recaptcha() {
+//   var recaptchaResponse = grecaptcha.getResponse();
+//   document.getElementById("_grecaptcha").value = recaptchaResponse;
 
-
-
-
-// var captcha=localStorage.getItem("_grecaptcha")
-// if (captcha == null){
-//   fetch(`/signin?captchas=${0}`)
-// } else{
-//   fetch(`/signin?captcha=${captcha}`);
+//   if (recaptchaResponse.length === 0) {
+//       alert("Please complete the reCAPTCHA!");
+//       return false;
+//   }
+//   return true;
 // }
-// // fetch(`/signin?captcha=${captcha}`);
+
 
 
 

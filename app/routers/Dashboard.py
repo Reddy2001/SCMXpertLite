@@ -49,7 +49,8 @@ async def Authenticate_User(current_user: dict = Depends(get_current_user_from_c
 async def get_dashboard(request: Request, current_user: dict = Depends(get_current_user_from_cookie)):
     try:
         if current_user:
-            return template.TemplateResponse("dashboard.html", {"request": request, "name":current_user["username"]})
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}") 
+            # print(current_user["role"])
+            return template.TemplateResponse("dashboard.html", {"request": request, "name":current_user["username"],"role":current_user["role"]})
+    except Exception:
+        raise HTTPException(status_code=500, detail=f"Internal Server Error") 
 

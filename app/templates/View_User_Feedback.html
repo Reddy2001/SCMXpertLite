@@ -8,9 +8,9 @@
     <!-- Boxicons -->
     <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel='stylesheet'>
     <!-- My CSS -->
-    <link rel="stylesheet" href="/static/css/Change_User_Role.css">
+    <link rel="stylesheet" href="/static/css/MyShipment.css">
 
-    <title>Dashboard | My Account</title>
+    <title>Dashboard | My Shipment</title>
 </head>
 
 <body>
@@ -24,20 +24,20 @@
             <span class="text" style="margin-left: 10px;">SCMXpertLite</span>
         </a>
         <ul class="side-menu top">
-            <li>
+            <li class="active">
                 <a href="/dashboard">
                     <i class='bx bxs-dashboard'></i>
                     <span class="text">Dashboard</span>
                 </a>
             </li>
-            <li class="active">
+            <li>
                 <a href="/myAccount">
                     <i class='bx bxs-group'></i>
                     <span class="text">My Account</span>
                 </a>
             </li>
             <li>
-                <a href="myShipment">
+                <a href="/myShipment">
                     <i class='bx bxs-shopping-bag-alt'></i>
                     <span class="text">My Shipment</span>
                 </a>
@@ -74,7 +74,7 @@
         <!-- NAVBAR -->
         <nav>
             <i class='bx bx-menu'></i>
-            <h2>Hi <b style="color: blue;">{{name}}</b>, Change User's Role</h2>
+            <h2>Hi  <b style="color: blue;">{{name}}</b>, These are User's Feedback</h2>
         </nav>
         <!-- NAVBAR -->
 
@@ -82,78 +82,51 @@
         <main>
             <div class="head-title">
                 <div class="left">
-                    <h1>My Account</h1>
+                    <h1>User's Feedback</h1>
                     <ul class="breadcrumb">
                         <li>
-                            <a href="#">Dashboard</a>
+                            <a href="/dashboard">Dashboard</a>
                         </li>
                         <li><i class='bx bx-chevron-right'></i></li>
                         <li>
-                            <a class="active" href="/myAccount">My Account</a>
-                        </li>
-                        <li><i class='bx bx-chevron-right'></i></li>
-                        <li>
-                            <a class="active" href="/changeUserRole">Change User Role</a>
+                            <a class="active" href="/viewUserFeedback">View User Feedback</a>
                         </li>
                     </ul>
                 </div>
             </div>
+
         </main>
         <!-- MAIN -->
     </section>
     <!-- CONTENT -->
+    <div class="table_data">
+        <table>
+            <thead>
+                <tr>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Rating</th>
+                    <th>opinion</th>
+                </tr>
+            </thead>
+            <tbody>
 
-    <div class="card">
-        <div class="form">
-            <form action="/changeUserRole" method="post">
-                <div id="error">{%if error%}{{error}}{%endif%}</div>
-                <div class="col1">
-                    <label for="">Enter Email of User</label><br>
-                    <input type="email" name="Email" placeholder="Enter User Email" required> <br>
-                    <button type="submit">Make As Admin</button>
-                </div>
-            </form>
-        </div>
+                {% for items in FeedbackData %}
+                <tr>
+                    <td data-label="name">{{ items.name }}</td>
+                    <td data-label="Email">{{ items.Email }}</td>
+                    <td data-label="rating">{{ items.rating }}</td>
+                    <td data-label="opinion">{{ items.opinion }}</td>
+                </tr>
+                {% endfor %}
+
+
+            </tbody>
+        </table>
+
     </div>
 
-    <script>
-        // Code for displaying active links
-        const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
-
-        allSideMenu.forEach(item => {
-            const li = item.parentElement;
-
-            item.addEventListener('click', function () {
-                allSideMenu.forEach(i => {
-                    i.parentElement.classList.remove('active');
-                })
-                li.classList.add('active');
-            })
-        });
-
-
-        // TOGGLE SIDEBAR --> to display the sidebar after clicking the menu icon 
-        const menuBar = document.querySelector('#content nav .bx.bx-menu');
-        const sidebar = document.getElementById('sidebar');
-
-        menuBar.addEventListener('click', function () {
-            sidebar.classList.toggle('hide');
-        })
-
-        // Getting error Message
-        const successMessage = document.getElementById('error');
-
-        // Hiding the Error Message
-        function hideSuccessMessage() {
-            successMessage.style.display = 'none';
-        }
-
-        // Delay in milliseconds (e.g., 3000 for 3 seconds)
-        const delay = 3000;
-
-        // Hiding Error message after Delay time
-        setTimeout(hideSuccessMessage, delay);
-    </script>
+    <script src="/static/javaScript/MyShipment.js"></script>
 </body>
 
 </html>

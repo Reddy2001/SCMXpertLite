@@ -69,8 +69,10 @@ def get_ForgotPassword(request: Request):
 # Forgot_Password router
 @router.post("/forgotPassword")
 async def post_ForgotPassword(request: Request,email: str=Form(...)):
+
     global receiver_email
     receiver_email = email
+
     try:
 
         # Validating Mail is present in database or not, if not it prints error message
@@ -78,6 +80,7 @@ async def post_ForgotPassword(request: Request,email: str=Form(...)):
             print("users",Users.find_one({"Email":email}))
             return template.TemplateResponse("Forgot_Password.html", {"request": request, "error": "Email doesn't exist"})
         
+        # If Mail is there in Database then we send OTP to the registered mail
         else:
             global otp
 
@@ -86,13 +89,13 @@ async def post_ForgotPassword(request: Request,email: str=Form(...)):
 
             print("genrated otp",otp)
 
+            # Storing otp and receiver mail to validate the otp
             OTP_NUMBER(otp)
             EmailId(receiver_email)
 
             print("Receiver mail",receiver_email)
 
             # smtp_connection method is called to send OTP mail to the User
-
             server_setup= await smtp_connection(otp, receiver_email)
             print("server setup",server_setup)
             

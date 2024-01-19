@@ -17,7 +17,7 @@ router.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Goto Login router to display Goto_Login page 
 @router.get("/gotoLogin")
-def get_ForgotPassword(request: Request):
+def get_GotoLogin(request: Request):
     return template.TemplateResponse("Goto_Login.html", {"request": request})
 
 

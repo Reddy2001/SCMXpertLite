@@ -24,7 +24,6 @@ async def logout(request: Request, access_token: str = Cookie(None)):
         response = RedirectResponse(url="/")
 
         # clear_access_token_cookie function is used to remove token from the cookie
-
         clear_access_token_cookie(response)
         return response 
     

@@ -31,3 +31,21 @@ var role=document.getElementById('id').innerText;
 if (role === 'User'){
     document.getElementById('RoleChange').style.display = 'none';
 }
+
+
+
+
+// Getting error Message
+const successMessage = document.getElementById('error');
+
+// Hiding the Error Message
+function hideSuccessMessage() {
+    successMessage.style.display = 'none';
+}
+
+// Delay in milliseconds (e.g., 3000 for 3 seconds)
+const delay = 3000;
+
+// Hiding Error message after Delay time
+setTimeout(hideSuccessMessage, delay);
+

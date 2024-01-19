@@ -109,17 +109,27 @@
         </li>
     </ul>
 
+    <div id="success">{%if message%}{{message}}{%endif%}</div>
+
     <!-- feedback -->
     <div class="FB">
-        <div class="feedback">
+        <div id="feedback">
             <button><a href="/feedback">Feedback</a></button>
+        </div>
+    </div>
+    
+    <!-- View feedback -->
+    <div class="FB">
+        <div class="View_Feeback" id="view_user_feedback">
+            <button><a href="/viewUserFeedback">View User's Feedback</a></button>
         </div>
     </div>
 
 
-
     <!-- Getting Access token from backend -->
-    <p id="access_token" style="display: none;">{{access_token}}</p>
+    <!-- <p id="access_token" style="display: none;">{{access_token}}</p> -->
+
+    <p id="role" style="display: none;">{{role}}</p>
 
     <script src="/static/javaScript/Dashboard.js"></script>
 </body>

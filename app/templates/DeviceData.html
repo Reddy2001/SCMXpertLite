@@ -86,15 +86,14 @@
             <div class="heading">
                 <h2>Please Select a Device Id to See the Data Stream</h2>
             </div>
-            <form action="">
+            <form action="/deviceData" method="post">
                 <div class="selection">
                     <div class="input">
                         <label for="Device_Id">Device Id*</label><br>
                         <select name="DeviceId" id="DeviceId">
-                            <option value="id">Device Id</option>
-                            <option value="112233">112233</option>
-                            <option value="223344">223344</option>
-                            <option value="334455">334455</option>
+                            <option>Device Id</option>
+                            <option value="1122334455">1122334455</option>
+                            <option value="6677889900">6677889900</option>
                         </select>
                     </div>
                     <div class="btn">
@@ -103,8 +102,11 @@
                 </div>
             </form>
         </div>
+        <div class="id">
+            <h2>Device Id : <b style="color: blue;">{{id}}</b></h2>
+        </div>
         <div class="innerTable">
-            <table id="data_table">
+            <table>
                 <thead>
                     <tr>
                         <th>Device Id</th>
@@ -115,33 +117,18 @@
                         <th>Timestamp</th>
                     </tr>
                 </thead>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
-                <tr>    <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>
+                <tbody>
+                    {% for data in DeviceData %}
+                    <tr>
+                        <td>{{ data.Device_Id }}</td>
+                        <td>{{ data.Battery_Level }}</td>
+                        <td>{{ data.First_Sensor_Temperature }}</td>
+                        <td>{{ data.Route_From }}</td>
+                        <td>{{ data.Route_To }}</td>
+                        <td>{{ data.Timestamp }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
     </div>

@@ -3,7 +3,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
 
-#importing all router files 
+#importing all route files 
 from routers.home import router as home_route
 from routers.register import router as signup_route
 from routers.login import router as signin_route
@@ -22,6 +22,9 @@ from routers.logout import router as logout_route
 from routers.Password_Changing import router as passwordChanging_route
 from routers.Device_Data_User import router as deviceDataUser_route
 from routers.Change_User_Role import router as changeUserRole_route
+from routers.View_User_Feedback import router as viewUserFeedback
+
+
 
 #To create instance of fastapi
 app = FastAPI()
@@ -37,7 +40,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 
-#To include routers
+#To include routes
 app.include_router(home_route)
 app.include_router(signup_route)
 app.include_router(signin_route)
@@ -56,3 +59,4 @@ app.include_router(logout_route)
 app.include_router(passwordChanging_route)
 app.include_router(deviceDataUser_route)
 app.include_router(changeUserRole_route)
+app.include_router(viewUserFeedback)

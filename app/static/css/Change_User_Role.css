@@ -314,3 +314,10 @@ body {
 .col1 button:hover{
     scale: 1.1;
 }
+
+#error{
+    text-align: center;
+    color: red;
+    display: block;
+    font-size: large;
+}

@@ -271,8 +271,8 @@ body {
     border-radius: 15px;
     padding: 30px 150px 20px 40px;
     /* background: linear-gradient( #49c1f18f,rgba(245, 222, 179, 0.849),white); */
-    background-color: #cfe8ff80;
-    box-shadow: 0 0 80px rgba(16, 189, 219, 0.61);
+    background-color: #cfe8ff3b;
+    box-shadow: 0 0 40px rgba(16, 189, 219, 0.61);
 }
 #fields1,#fields2,#fields3,#fields4,#fields5,#fields6{
     display: flex;

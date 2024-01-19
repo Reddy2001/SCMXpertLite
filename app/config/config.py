@@ -6,8 +6,9 @@ Dname=dbConn["SCMXpertLite"]
 Users=Dname["UserData"]
 Shipment=Dname["ShipmentData"]
 Feedback=Dname["Feedback"]
+Device_Data=Dname["Device_Data"]
 
-
+# SCMXpertLite
 
 #JWT Token variables
 class JWT_Token:

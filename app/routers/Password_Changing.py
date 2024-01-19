@@ -4,11 +4,13 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 
+# importing "re" module in Python provides regular expression matching operations[It is used for password strength checking ]
 import re
 
 # importing all variables in config file
 from config.config import *
 
+# importing CryptContext to hash the password
 from passlib.context import CryptContext
 
 
@@ -42,8 +44,8 @@ async def Authenticate_User(current_user: dict = Depends(get_current_user_from_c
 
 # Password Changing router to display Password_Changing page 
 @router.get("/passwordChanging", response_class=HTMLResponse, dependencies=[Depends(Authenticate_User)])
-def get_passwordChanging(request: Request):
-    return template.TemplateResponse("Password_Changing.html", {"request": request})
+def get_passwordChanging(request: Request,current_user: dict = Depends(get_current_user_from_cookie)):
+    return template.TemplateResponse("Password_Changing.html", {"request": request,"name":current_user['username']})
 
 
 
@@ -54,6 +56,8 @@ def post_passwordChanging(request: Request, Old_Password:str = Form(...),
                           Re_type_Password:str = Form(...),
                           current_user: dict = Depends(get_current_user_from_cookie)):
     try:
+
+        # fletching user details from database based on email
         user = Users.find_one({"Email":current_user["email"]})
 
         # Checking Old Password with the Password present on the database
@@ -75,12 +79,12 @@ def post_passwordChanging(request: Request, Old_Password:str = Form(...),
         else:
             # Hashing the password
             hash_password = pwd_context.hash(New_Password)
-            print("current_user", current_user)
+            # print("current_user", current_user)
 
             #Updating the new password on the database
             result= Users.update_one({"Email": current_user["email"]} , {"$set": {"Password": hash_password}})
             
-            return template.TemplateResponse("Dashboard.html",{"request":request,"success":"Password Changed Successfully"})
+            return template.TemplateResponse("Dashboard.html",{"request":request,"message":"Password Changed Successfully"})
 
 
     except Exception:

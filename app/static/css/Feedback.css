@@ -18,16 +18,17 @@
 }
 
 body {
-	background: var(--grey);
+	/* background: var(--grey); */
+	background-image: url('/static/pictures/feedback.jpg');
+	background-position:center;
+	background-size:cover;
+	backdrop-filter: blur(3px);
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	min-height: 100vh;
 	padding: 1rem;
 }
-
-
-
 
 
 
