@@ -3,7 +3,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
 
-#importing all route files 
+# Importing all route files 
 from routers.home import router as home_route
 from routers.register import router as signup_route
 from routers.login import router as signin_route
@@ -26,21 +26,21 @@ from routers.View_User_Feedback import router as viewUserFeedback
 
 
 
-#To create instance of fastapi
+# To create instance of fastapi
 app = FastAPI()
 
 
-#To access the html folder
+# To access the html folder
 template = Jinja2Templates(directory="templates")
 
 
-#To add css to html
+# To add css to html
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 
 
-#To include routes
+# To include routes
 app.include_router(home_route)
 app.include_router(signup_route)
 app.include_router(signin_route)

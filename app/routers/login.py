@@ -1,10 +1,10 @@
 from fastapi import APIRouter
-from fastapi import Request,Depends
+from fastapi import Request,Depends,Form
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.responses import HTMLResponse,RedirectResponse
-
+from fastapi import requests
 
 # importing all variables in config file
 from config.config import *
@@ -43,23 +43,28 @@ async def signin(request: Request, forms: OAuth2PasswordRequestForm = Depends())
     # Storing the details of user based on emain entered by the user
     user = Users.find_one({"Email": forms.username})
 
-    captcha_response = forms.__dict__.get('_grecaptcha')
-
     # Validating email is exits in database 
     if user==None:
         return template.TemplateResponse("login.html",{"request":request, "message":"User doesn't exist...."})
     
-    # elif not captcha_response:
-    #     return template.TemplateResponse("login.html", {"request": request, "message": "Please Verify Captcha...."})
     
-    # Validation the hashed password and the user entered password with "verify method"
     elif (pwd_context.verify(forms.password,user["Password"])):
         
         access_token = create_jwt_token(user)
 
-
         response= RedirectResponse("/dashboard", status_code=302)
+
+
+        '''Here we are using Httponly flag, When the HttpOnly flag is set on a cookie,
+            it instructs the browser not to expose the cookie to client-side scripts (e.g., JavaScript).
+            This means that the cookie is only accessible by the server and cannot be read or modified by
+            client-side scripts running in the user's browser and we can also use "Secure" flag, The Secure 
+            flag indicates that the cookie should only be sent over secure connections (i.e., HTTPS). 
+            If a cookie has the Secure flag set and the connection is not secure, the browser will not send
+            the cookie in the request.'''
+        
         response.set_cookie(key="access_token", value=access_token, httponly=True)
+
         return response
     
     # If user entered wrong password Error Message will be printed on login page

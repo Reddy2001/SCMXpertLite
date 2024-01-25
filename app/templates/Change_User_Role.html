@@ -107,6 +107,7 @@
         <div class="form">
             <form action="/changeUserRole" method="post">
                 <div id="error">{%if error%}{{error}}{%endif%}</div>
+                <div id="success">{%if message%}{{message}}{%endif%}</div>
                 <div class="col1">
                     <label for="">Enter Email of User</label><br>
                     <input type="email" name="Email" placeholder="Enter User Email" required> <br>
@@ -140,18 +141,23 @@
             sidebar.classList.toggle('hide');
         })
 
-        // Getting error Message
-        const successMessage = document.getElementById('error');
-
-        // Hiding the Error Message
+        // Getting error and success Message
+        const errorMessage = document.getElementById('error');
+        const successMessage = document.getElementById('success');
+        // Hiding the Error Message and success message
+        function hideErrorMessage() {
+            errorMessage.style.display = 'none';
+        }
         function hideSuccessMessage() {
             successMessage.style.display = 'none';
         }
 
+
         // Delay in milliseconds (e.g., 3000 for 3 seconds)
         const delay = 3000;
 
-        // Hiding Error message after Delay time
+        // Hiding Error and success message after Delay time
+        setTimeout(hideErrorMessage, delay);
         setTimeout(hideSuccessMessage, delay);
     </script>
 </body>

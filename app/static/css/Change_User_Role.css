@@ -321,3 +321,9 @@ body {
     display: block;
     font-size: large;
 }
+#success{
+    text-align: center;
+    color: rgb(9, 87, 255);
+    display: block;
+    font-size: large;
+}

@@ -7,6 +7,10 @@ from fastapi.staticfiles import StaticFiles
 # Importing get_current_user_from_cookie method to take the username,email and expired time
 from routers.jwt import get_current_user_from_cookie
 
+
+#  Importing Authenticate_User() function to check the user is Authenticated user or not
+from routers.Authenticate_User import Authenticate_User
+
 # importing all variables in config file
 from  config.config import *
 
@@ -18,16 +22,7 @@ template = Jinja2Templates(directory="templates")
 
 # To add css to html
 router.mount("/static", StaticFiles(directory="static"), name="static")
-
-
-# New dependency function to check if the user is authenticated
-async def Authenticate_User(current_user: dict = Depends(get_current_user_from_cookie)):
-    if current_user is None or "username" not in current_user or "email" not in current_user or "role" not in current_user:
-       # Redirect unauthenticated user to the sign-in page
-        url = "/"
-        raise HTTPException(status_code=307, detail="Not authenticated", headers={"Location": url})
-    return current_user
-        
+      
 
 
 # NewShipment get router to display NewShipment page 
@@ -57,11 +52,11 @@ def post_newShipment(request: Request, ShipmentNumber: str = Form(...),
 
     # Checking Shipment Number size[size must be 7]
     if (len(ShipmentNumber) != 7):
-        return template.TemplateResponse("NewShipment.html",{"request":request,"error":"Shipment Number must contain 7 digits......"})
+        return template.TemplateResponse("NewShipment.html",{"request":request,"name":current_user['username'],"error":"Shipment Number must contain 7 digits......"})
     
     # Checking Uniqueness of Shipment Number
     elif Shipment.find_one({"ShipmentNumber":ShipmentNumber}):
-        return template.TemplateResponse("NewShipment.html",{"request":request,"error":"Shipment Number should be unique....."})
+        return template.TemplateResponse("NewShipment.html",{"request":request,"name":current_user['username'],"error":"Shipment Number should be unique....."})
     
 
     # Pushing data to the newShipmentData dictionary
@@ -85,5 +80,5 @@ def post_newShipment(request: Request, ShipmentNumber: str = Form(...),
     # print(newShipmentData)
     Shipment.insert_one(newShipmentData)
     msg="New Shipment registered successfully...."
-    return template.TemplateResponse("NewShipment.html",{"request":request,"message":msg})
+    return template.TemplateResponse("NewShipment.html",{"request":request,"name":current_user['username'],"message":msg})
 

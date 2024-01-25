@@ -1,5 +1,5 @@
 import pymongo
-myurl="mongodb://localhost:27017"
+myurl="mongodb+srv://reddysekharamudala:P4kpHqzH80zsiypk@cluster0.xkemysf.mongodb.net/"
 
 dbConn=pymongo.MongoClient(myurl)
 Dname=dbConn["SCMXpertLite"]    

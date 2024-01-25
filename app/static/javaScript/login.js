@@ -15,20 +15,6 @@ function togglePassword() {
 }
 
 
-// function check_recaptcha() {
-//   var recaptchaResponse = grecaptcha.getResponse();
-//   document.getElementById("_grecaptcha").value = recaptchaResponse;
-
-//   if (recaptchaResponse.length === 0) {
-//       alert("Please complete the reCAPTCHA!");
-//       return false;
-//   }
-//   return true;
-// }
-
-
-
-
 
 // Getting Error Message
 const errorMessage = document.getElementById('error');
@@ -43,3 +29,20 @@ const delay = 3000;
 
 // Hiding Error message after Delay time
 setTimeout(hideErrorMessage, delay);
+
+
+function Verify_Captcha(){
+  const captcha = localStorage.getItem("_grecaptcha")
+  console.log(captcha,"captcha")
+  if(captcha == "")
+  {
+    window.alert("Please Verify Captcha..")
+    window.location.href='/signin'
+  }
+}
+
+// if (grecaptcha.getResponse() == ""){
+//   alert("You can't proceed!");
+// } else {
+//   alert("Thank you");
+// }

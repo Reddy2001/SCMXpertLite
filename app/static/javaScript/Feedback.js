@@ -21,3 +21,8 @@ allStar.forEach((item, idx)=> {
 		}
 	})
 })
+
+function success(){
+	window.alert("Feedback saved Successfully")
+}
+

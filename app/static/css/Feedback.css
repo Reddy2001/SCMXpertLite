@@ -109,10 +109,9 @@ textarea {
 }
 .btn-group .btn.submit {
 	background: var(--blue);
+	color: var(--white);
 }
-.btn-group .btn.submit a{
-    color: var(--white);
-}
+
 .btn-group .btn.submit:hover {
 	background: var(--blue-d-1);
 }

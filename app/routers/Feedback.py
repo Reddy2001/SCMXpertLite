@@ -3,8 +3,14 @@ from fastapi import Request,Form,Depends,HTTPException
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse,RedirectResponse
+
+
+# Importing get_current_user_from_cookie method to take the username,email and expired time
 from routers.jwt import get_current_user_from_cookie
 
+
+#  Importing Authenticate_User() function to check the user is Authenticated user or not
+from routers.Authenticate_User import Authenticate_User
 
 #importing all variables in config file
 from config.config import *
@@ -18,16 +24,6 @@ template = Jinja2Templates(directory="templates")
 # To add css to html
 router.mount("/static", StaticFiles(directory="static"), name="static")
 
-
-
-# Authenticate_User function to check if the user is authenticated or not
-async def Authenticate_User(current_user: dict = Depends(get_current_user_from_cookie)):
-    if current_user is None or "username" not in current_user or "email" not in current_user or "role" not in current_user:
-       # Redirect unauthenticated user to the home page
-        url = "/"
-        raise HTTPException(status_code=307, detail="Not authenticated", headers={"Location": url})
-    return current_user
-  
 
 # Feedback router to display Feedback page 
 @router.get("/feedback", response_class=HTMLResponse, dependencies=[Depends(Authenticate_User)])
