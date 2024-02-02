@@ -72,7 +72,6 @@ def post_passwordChanging(request: Request, Old_Password:str = Form(...),
         else:
             # Hashing the password
             hash_password = pwd_context.hash(New_Password)
-            # print("current_user", current_user)
 
             #Updating the new password on the database
             result= Users.update_one({"Email": current_user["email"]} , {"$set": {"Password": hash_password}})

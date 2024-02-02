@@ -5,7 +5,7 @@ import socket
 
 load_dotenv()
 
-# Creating socket instance
+# Creating socket connection [default parameters are TCP and IPV4(If needed we can change it)]
 server = socket.socket()
 
 # Setting connection with server

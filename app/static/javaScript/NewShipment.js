@@ -25,7 +25,7 @@ menuBar.addEventListener('click', function () {
 
 
 
-                 // For data validations
+                 // For date validations
 
 // Get the current date 
 function getCurrentDate() {
@@ -64,3 +64,4 @@ const delay = 3000;
 // Hiding Error message and Success message after Delay time
 setTimeout(hideErrorMessage, delay);
 setTimeout(hideSuccessMessage, delay);
+

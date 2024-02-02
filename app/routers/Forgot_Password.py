@@ -66,7 +66,7 @@ def get_ForgotPassword(request: Request):
 
 
 
-# Forgot_Password router
+# Forgot_Password router to take mail from the user and send mail to that entered mail
 @router.post("/forgotPassword")
 async def post_ForgotPassword(request: Request,email: str=Form(...)):
 

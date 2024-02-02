@@ -1,0 +1,63 @@
+version: '3'
+
+#The services section is to define the individual containers (services) that will make up your application.
+services:
+ # scmxpertlite application service
+  scmxpertlite:
+    image: scmxpertlite:latest
+    ports:
+      - "8067:8067"
+       #networks that will be used to connect your services. Networks allow containers to communicate with each other using their service names as hostnames
+
+  # Zookeeper service for Kafka
+  zookeeper:
+    image: 'bitnami/zookeeper:latest'  
+    ports:
+      - "2181:2181"
+    depends_on:
+      - scmxpertlite
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+
+  # Kafka service
+  kafka:
+    image: 'bitnami/kafka:latest' 
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_HEAP_OPTS=-Xmx1G  
+ 
+  # Server service
+  server: 
+    image: server:latest
+    ports:
+      - "12121:12121"
+    depends_on:
+      - kafka
+  # Producer service
+  producer:
+    image: producer:latest
+    depends_on:
+      - server
+    environment:
+      - port=12121
+      - host=server
+      - bootstrap_servers=kafka:9092
+      - topic=SCM
+    
+   # Consumer service
+  consumer:
+    image: consumer:latest
+    depends_on:
+      - producer
+    environment:
+      - bootstrap_servers=kafka:9092
+      - topic=SCM
+      - MONGODB_URL=mongodb+srv://reddysekharamudala:P4kpHqzH80zsiypk@cluster0.xkemysf.mongodb.net/
+      - group_id=SCMXpert
+      - data_base_name=SCMXpertLite
+      - collection=Device_Data

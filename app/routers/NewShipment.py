@@ -77,7 +77,6 @@ def post_newShipment(request: Request, ShipmentNumber: str = Form(...),
     }
 
     # Pushing data to the database[Shipment Collection]
-    # print(newShipmentData)
     Shipment.insert_one(newShipmentData)
     msg="New Shipment registered successfully...."
     return template.TemplateResponse("NewShipment.html",{"request":request,"name":current_user['username'],"message":msg})

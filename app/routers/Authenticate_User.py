@@ -8,5 +8,6 @@ async def Authenticate_User(current_user: dict = Depends(get_current_user_from_c
        # Redirect unauthenticated user to the home page
         url = "/"
         raise HTTPException(status_code=307, detail="Not authenticated", headers={"Location": url})
-    return current_user
+    # print(current_user,"current user")
+    return True
         

@@ -13,8 +13,6 @@ allSideMenu.forEach(item => {
 });
 
 
-
-
 // TOGGLE SIDEBAR --> to display the sidebar after clicking the menu icon 
 const menuBar = document.querySelector('#content nav .bx.bx-menu');
 const sidebar = document.getElementById('sidebar');
@@ -38,3 +36,12 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector('.redirect').style.display = 'block';
     }, 1250); 
 });
+
+
+
+$(document).mousemove(function (event) {
+    $('.torch').css({
+      'top': event.pageY,
+      'left': event.pageX
+    });
+  });

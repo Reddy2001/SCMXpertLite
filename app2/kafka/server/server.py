@@ -70,7 +70,8 @@ def generate_fake_data():
 while True:
     try:
         data = generate_fake_data()
-        # print(data)
+
+        # Serializing the data to json string and enconding it with UTF[It suitable for storage or transmission]
         display_Data = (json.dumps(data, indent=1)).encode("utf-8")
         print("Display_Data",display_Data)
         client_socket.send(display_Data)

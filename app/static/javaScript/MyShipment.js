@@ -22,5 +22,3 @@ const sidebar = document.getElementById('sidebar');
 menuBar.addEventListener('click', function () {
     sidebar.classList.toggle('hide');
 })
-
-

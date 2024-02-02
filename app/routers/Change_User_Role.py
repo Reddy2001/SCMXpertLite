@@ -29,6 +29,10 @@ router.mount("/static", StaticFiles(directory="static"), name="static")
 @router.get("/changeUserRole", response_class=HTMLResponse, dependencies=[Depends(Authenticate_User)])
 def get_ChangeUserROle(request: Request,current_user: dict = Depends(get_current_user_from_cookie)):
     try:
+        # Except Admin anyone should not access that route
+        if current_user["role"] != "Admin":
+            return template.TemplateResponse("login.html",{"request":request,"name":current_user['username'],"message":"Only admin can access Change User Role page"})
+        
         return template.TemplateResponse("Change_User_Role.html", {"request": request,"name":current_user['username']})
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}") 

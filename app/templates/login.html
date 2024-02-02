@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="/static/css/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- accessing Jquery through online -->
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.js"
+        integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc=" crossorigin="anonymous"></script>
+    
 </head>
 
 <body id="body">
@@ -38,12 +42,13 @@
         <!-- error message printing -->
         <div class="visible">
             <div id="error">{%if message%}{{message}}{%endif%}</div>
+            <div id="msg">{%if success%}{{success}}{%endif%}</div>
         </div>
 
         <div class="container">
             <h1>SCMXPerLite</h1>
             <h2>Login in now</h2>
-            <form id="signin-form" action="/signin" method="post" onsubmit="return check_recaptcha()">
+            <form id="signin-form" action="/signin" method="post" name="form1">
 
                 <div class="fields">
                     <label for="mail">Email Address*</label>
@@ -52,27 +57,29 @@
                 <div class="fields">
                     <label for="password">Password*</label>
                     <input type="password" id="password" name="password" placeholder="Enter your Password" required>
-                    <i class="far fa-eye-slash" id="eye" style="position: absolute; right: 55%; top:51%;"
+                    <i class="far fa-eye-slash" id="eye" style="position: relative; right: 23%; top: 7px;"
                         onclick="togglePassword()"> Show Password</i>
                 </div>
 
-                <!-- google recaptcha -->
-                <div class="g-recaptcha" data-sitekey="6LdQQDcpAAAAAKU3bgSg3lAZ2_9TF2GcSy_0hYNg"></div>
+                <div class="captcha">
+                    <input type="text" name="captcha" placeholder="Enter Captcha" required style="width: 200px;">
+                    <span id="captcha"></span>
+                </div>
+                  <p id="refresh" style="font-size: 20px; width: 40px; position: absolute; left: 340px; top: 275px; cursor: pointer; background-color: blue; 
+                  color: white; border-radius: 12px;">↻</p>
 
-                <input type="hidden" name="_grecaptcha" id="_grecaptcha">
-
+                 <input type="text" name="original_captcha" id="original_captcha" style="display: none;"> 
                 <div class="submit">
-                    <button type="submit">Sign In</button>
+                    <button type="submit" id="submit">Sign In</button>
                 </div>
                 <hr id="inner_line">
                 <p>Don't have an account? <a href="/signup">Register</a></p>
                 <p><a href="/forgotPassword">Forgot your Password?</a></p>
+               
             </form>
         </div>
     </div>
-
-
-
+   
 
     <script src="/static/javaScript/login.js"> </script>
 </body>

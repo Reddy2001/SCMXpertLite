@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from fastapi import Request, Depends,Form
 from fastapi.templating import Jinja2Templates

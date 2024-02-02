@@ -5,11 +5,12 @@ import socket
 
 load_dotenv()
 
-# Creating socket instance
+# Creating socket connection [default parameters are TCP and IPV4(If needed we can change it)]
 server = socket.socket()
 
 # Setting connection with server
 server.connect((os.getenv("host"), int(os.getenv("port"))))
+print(server)
 
 config = {
     'bootstrap.servers': os.getenv('bootstrap_servers')
@@ -24,8 +25,6 @@ while True:
         producer.produce(os.getenv("topic"), key="SCMXpert", value=data)
         print(data)
         
-    
-      
     except socket.timeout:
         print("No data received in the last 10 seconds.")
     except ConnectionResetError:

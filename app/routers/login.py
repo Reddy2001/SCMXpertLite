@@ -1,10 +1,9 @@
 from fastapi import APIRouter
-from fastapi import Request,Depends,Form
+from fastapi import Request,Depends,Form,Header
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.responses import HTMLResponse,RedirectResponse
-from fastapi import requests
 
 # importing all variables in config file
 from config.config import *
@@ -31,14 +30,15 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated = "auto")
 
 # Signin router to display login page 
 @router.get("/signin")
-def get_signin(request: Request):
-    return template.TemplateResponse("login.html", {"request": request})
+def get_signin(request: Request,error:str | None=None):
+    # print("error",error)
+    return template.TemplateResponse("login.html", {"request": request,"message":error})
 
 
 
 # Signin route to take inputs from the login.html
 @router.post("/signin", response_class=HTMLResponse)
-async def signin(request: Request, forms: OAuth2PasswordRequestForm = Depends()):
+async def signin(request: Request, forms: OAuth2PasswordRequestForm = Depends(),captcha:str = Form(...),original_captcha:str = Form(...)):
 
     # Storing the details of user based on emain entered by the user
     user = Users.find_one({"Email": forms.username})
@@ -49,23 +49,26 @@ async def signin(request: Request, forms: OAuth2PasswordRequestForm = Depends())
     
     
     elif (pwd_context.verify(forms.password,user["Password"])):
+        if original_captcha == captcha:
         
-        access_token = create_jwt_token(user)
+            access_token = create_jwt_token(user)
 
-        response= RedirectResponse("/dashboard", status_code=302)
+            response= RedirectResponse("/dashboard", status_code=302)
 
 
-        '''Here we are using Httponly flag, When the HttpOnly flag is set on a cookie,
-            it instructs the browser not to expose the cookie to client-side scripts (e.g., JavaScript).
-            This means that the cookie is only accessible by the server and cannot be read or modified by
-            client-side scripts running in the user's browser and we can also use "Secure" flag, The Secure 
-            flag indicates that the cookie should only be sent over secure connections (i.e., HTTPS). 
-            If a cookie has the Secure flag set and the connection is not secure, the browser will not send
-            the cookie in the request.'''
-        
-        response.set_cookie(key="access_token", value=access_token, httponly=True)
+            '''Here we are using Httponly flag, When the HttpOnly flag is set on a cookie,
+                it instructs the browser not to expose the cookie to client-side scripts (e.g., JavaScript).
+                This means that the cookie is only accessible by the server and cannot be read or modified by
+                client-side scripts running in the user's browser and we can also use "Secure" flag, The Secure 
+                flag indicates that the cookie should only be sent over secure connections (i.e., HTTPS). 
+                If a cookie has the Secure flag set and the connection is not secure, the browser will not send
+                the cookie in the request.'''
+            
+            response.set_cookie(key="access_token", value=access_token, httponly=True)
 
-        return response
+            return response
+        else:
+            return template.TemplateResponse("login.html",{"request":request,"message":"Please enter Valid captcha"})
     
     # If user entered wrong password Error Message will be printed on login page
     else:

@@ -23,6 +23,8 @@ consumer.subscribe([os.getenv("topic")])
 
 try:
     while True:
+
+        # It will wait for 1 sec and check again there are new messages or not 
         message = consumer.poll(1.0)
         if message is None:
             continue

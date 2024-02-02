@@ -8,13 +8,12 @@ Shipment=Dname["ShipmentData"]
 Feedback=Dname["Feedback"]
 Device_Data=Dname["Device_Data"]
 
-# SCMXpertLite
 
 #JWT Token variables
 class JWT_Token:
     SECRET_KEY = "secret"
     ALGORITHM = "HS256"
-    EXPIRE_MINUTES=30
+    EXPIRE_MINUTES=1
 
 # Forgot Password Sender information
 Sender_Mail="reddysekharamudala@gmail.com"

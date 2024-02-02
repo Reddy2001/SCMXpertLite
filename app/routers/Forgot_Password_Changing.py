@@ -61,7 +61,7 @@ def post_forgotPasswordChanging(request: Request, Password:str = Form(...), Re_t
 
             #Updating the new password on the database
             Users.update_one({"Email": storing_Email.EmailId},{"$set": {"Password": hash_password}})
-            return template.TemplateResponse("Goto_login.html",{"request":request})
+            return template.TemplateResponse("Goto_Login.html",{"request":request})
 
 
     except Exception :

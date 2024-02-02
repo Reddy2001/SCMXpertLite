@@ -46,6 +46,8 @@ def post_ChangeUserRole(request: Request,
         # If user exists admin will change the role of user
         elif user['Role'] == "Admin":
             return JSONResponse(content={"Error":"He/She is already an Admin"},status_code=400)
+        elif current_user["role"] !="Admin":
+            return JSONResponse(content={"Error":"You are not Admin"},status_code=400)
         else:
 
             #Updating the role on the database

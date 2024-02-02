@@ -16,13 +16,13 @@ print("Socket Created")
 # Binding socket connection with local host and some random port number between 0 to 65535
 socket_connection.bind((os.getenv("host"), int(os.getenv("port"))))
 
-# Server accepts 3 clints at a time 
+# Server accepts 3 clients at a time 
 socket_connection.listen(3)
 print("waiting for connections")
 
 #accept() accept the client address
 #addr: This contains the address and port of the connected client. 
-#client is the new socket object returned by the accept(). It is used to send data to the client
+#client_socket is the new socket object returned by the accept(). It is used to send data to the client
 client_socket, addr = socket_connection.accept()
 
 print(f'Connection from {addr} has been Established.')
@@ -31,6 +31,8 @@ print(f'Connection from {addr} has been Established.')
 # Create a Faker instance
 fake = Faker()
 
+
+# Method to generate fake data
 def generate_fake_data():
 
     id=[1122334455, 6677889900]
@@ -70,7 +72,8 @@ def generate_fake_data():
 while True:
     try:
         data = generate_fake_data()
-        # print(data)
+        
+        # Serializing the data to json string and enconding it with UTF[It suitable for storage or transmission]
         display_Data = (json.dumps(data, indent=1)).encode("utf-8")
         print("Display_Data",display_Data)
         client_socket.send(display_Data)

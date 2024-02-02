@@ -1,11 +1,8 @@
 from fastapi import APIRouter,Form
-from fastapi import Request,Depends
+from fastapi import Request
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
-from fastapi.security import OAuth2PasswordRequestForm
-from fastapi.responses import HTMLResponse,RedirectResponse
-from fastapi import Cookie
 
 # importing all variables in config file
 from config.config import *

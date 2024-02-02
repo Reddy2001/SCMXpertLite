@@ -13,7 +13,6 @@ from routers.NewShipment import router as newShipment_route
 from routers.Feedback import router as Feedback_route
 from routers.MyShipment import router as myShipment_route
 from routers.DeviceData import router as deviceData_route
-from routers.jwt import router as jwt_router
 from routers.Forgot_Password import router as forgotPassword_route
 from routers.OTP_Validation import router as otpValidation_route
 from routers.Forgot_Password_Changing import router as ForgotPasswordChanging_route
@@ -36,6 +35,8 @@ template = Jinja2Templates(directory="templates")
 # To add css to html
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+
+# adding Origins [it is useful when working with fetch]
 origins = [
     "http://localhost",
     "http://127.0.0.1:8000"
@@ -62,7 +63,6 @@ app.include_router(newShipment_route)
 app.include_router(Feedback_route)
 app.include_router(myShipment_route)
 app.include_router(deviceData_route)
-app.include_router(jwt_router)
 app.include_router(forgotPassword_route)
 app.include_router(otpValidation_route)
 app.include_router(ForgotPasswordChanging_route)

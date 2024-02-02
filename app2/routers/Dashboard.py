@@ -1,11 +1,9 @@
-from fastapi import APIRouter, HTTPException
-from fastapi.responses import HTMLResponse
-from fastapi import Request, Depends
+from fastapi import APIRouter
+from fastapi import Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
 # Importing get_current_user_from_SessionStorage method to take the username,email and expired time
-from routers.jwt import get_current_user_from_SessionStorage
 
 
 # To create instance of APIRouter

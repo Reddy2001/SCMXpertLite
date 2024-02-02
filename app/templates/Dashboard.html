@@ -99,17 +99,18 @@
     <ul class="box-info">
         <li class="bg1">
             <span class="text">
-                <button><a href="/myShipment">My Shipment</a></button>
+                <button><a href="/newShipment">New Shipment</a></button>
             </span>
         </li>
         <li class="bg2">
             <span class="text">
-                <button><a href="/newShipment">New Shipment</a></button>
+                <button><a href="/deviceData">Device Data</a></button>
             </span>
         </li>
     </ul>
 
     <div id="success">{%if message%}{{message}}{%endif%}</div>
+    <div id="Error">{%if Error%}{{Error}}{%endif%}</div>
 
     <!-- feedback -->
     <div class="FB">
@@ -126,9 +127,7 @@
     </div>
 
 
-    <!-- Getting Access token from backend -->
-    <!-- <p id="access_token" style="display: none;">{{access_token}}</p> -->
-
+    <!-- getting role and it will not display to the user -->
     <p id="role" style="display: none;">{{role}}</p>
 
     <script src="/static/javaScript/Dashboard.js"></script>

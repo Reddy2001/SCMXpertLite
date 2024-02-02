@@ -3,6 +3,7 @@ from fastapi import Request,Form,HTTPException
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
+# Importing Stored OTP to validate with user Entering OTP
 from routers.Forgot_Password import storing_OTP
 
 # To create instance of APIRouter
@@ -21,7 +22,7 @@ def get_OTPValidation(request: Request):
     return template.TemplateResponse("OTP_Validation.html", {"request": request})
 
 
-# OTP Validation router to Take OTP from the user
+# OTP Validation router to Take OTP from the user and validate it with original otp
 @router.post("/otpValidation")
 def post_OTPValidation(request:Request, User_otp: int=Form(...)):
     print("otp page",storing_OTP.OTP)

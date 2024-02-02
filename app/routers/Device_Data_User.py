@@ -25,7 +25,7 @@ router.mount("/static", StaticFiles(directory="static"), name="static")
 @router.get("/deviceDataUser", response_class=HTMLResponse, dependencies=[Depends(Authenticate_User)])
 def get_deviceDataUser(request: Request, current_user: dict = Depends(get_current_user_from_cookie)):
     try:
-        return template.TemplateResponse("Device_Data_User.html", {"request": request,"name": current_user.get("username")})
+        return template.TemplateResponse("Device_Data_User.html", {"request": request,"name": current_user["username"]})
         
     except Exception:
         raise HTTPException(status_code=500, detail=f"Internal Server Error") 

@@ -33,7 +33,7 @@ def get_signup(request: Request):
 
 # Signup router to take inputs from the user and validate them, then stored in database
 @router.post("/signup")
-def post_signup(request: Request, name: str = Form(), mail: str = Form(), password: str = Form(), con_password: str = Form(...)):
+def post_signup(request: Request, name: str = Form(...), mail: str = Form(...), password: str = Form(...), con_password: str = Form(...)):
 
     # Checking length for the username[Username must be have more than 6 characters]
     if len(name)<6:
@@ -67,11 +67,8 @@ def post_signup(request: Request, name: str = Form(), mail: str = Form(), passwo
         "Password":hash_password
     }
 
-
-    # pwd_context.verify(password,hash_password)
-
     # Pushing data dictionary to the database collection
     Users.insert_one(data)
 
-    return template.TemplateResponse("login.html", {"request": request})
+    return template.TemplateResponse("login.html", {"request": request,"success":"Successfully registered, Please login to continue"})
 

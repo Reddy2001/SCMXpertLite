@@ -4,6 +4,8 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse,RedirectResponse
 from routers.jwt import clear_access_token_cookie
+
+
 # create instance of APIRouter
 router = APIRouter()
 
