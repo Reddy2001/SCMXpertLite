@@ -5,10 +5,10 @@ from fastapi.staticfiles import StaticFiles
 from passlib.context import CryptContext
 
 
-# importing all variables in config file
-from  config.config import *
+# importing Users variables in config file for Users Collection
+from  config.config import Users
 
-# importing "re" module in Python provides regular expression matching operations[It is used for password strength checking ]
+# importing "re" module in Python provides regular expression matching operations[It is used for password strength checking]
 import re
 
 # Instance for CryptContext

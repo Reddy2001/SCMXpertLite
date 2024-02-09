@@ -4,7 +4,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
 # Importing Stored OTP to validate with user Entering OTP
-from routers.Forgot_Password import storing_OTP
+from routers.forgot_password import storing_OTP
 
 # To create instance of APIRouter
 router = APIRouter()

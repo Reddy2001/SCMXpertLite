@@ -19,7 +19,6 @@
     <!-- SIDEBAR -->
     <section id="sidebar">
         <a href="#" class="brand">
-            <!-- <i class='bx bxs-smile'></i> -->
             <img src="/static/pictures/icon.webp" alt="" height="30px" width="30px" style="margin-left: 20px;">
             <span class="text" style="margin-left: 10px;">SCMXpertLite</span>
         </a>
@@ -54,7 +53,12 @@
                     <span class="text">Device Data</span>
                 </a>
             </li>
-
+            <li id="SuperAdmin" >
+                <a href="/contactSuperAdmin">
+                    <i class='bx bxs-contact'></i>
+                    <span class="text">Contact Super Admin</span>
+                </a>
+            </li>
         </ul>
         <ul class="side-menu">
             <li>
@@ -122,7 +126,7 @@
                 <div class="left2">
                     <label for="RouteDetails">Route details<i class="danger-text" style="color: red;">*</i></label><br>
                     <select id="RouteDetails" name="RouteDetails" placeholder="Select route" required>
-                        <option value="route">Select route</option>
+                        <option value="" disabled selected>Select route</option>
                         <option value="Tirupati">Tirupati</option>
                         <option value="Kadapa">Kadapa</option>
                         <option value="Nellore">Nellore</option>
@@ -131,7 +135,7 @@
                 <div class="right2">
                     <label for="Goods">Goods Type<i class="danger-text" style="color: red;">*</i></label><br>
                     <select id="Goods" name="GoodsType" placeholder="Select Goods" required>
-                        <option value="Goods">Select Goods</option>
+                        <option value="" disabled selected>Select Goods</option>
                         <option value="Electronics">Electronics</option>
                         <option value="Medical">Medical</option>
                         <option value="Cosmetics">Cosmetics</option>
@@ -142,7 +146,7 @@
                 <div class="left3">
                     <label for="Device" >Select Device<i class="danger-text" style="color: red;">*</i></label><br>
                     <select id="Device" name="DeviceName" placeholder="Select Device" required>
-                        <option value="Device">Select Device</option>
+                        <option value="" disabled selected>Select Device</option>
                         <option value="111">111</option>
                         <option value="112">112</option>
                         <option value="113">113</option>

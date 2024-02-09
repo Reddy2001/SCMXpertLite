@@ -9,10 +9,10 @@ from routers.jwt import get_current_user_from_cookie
 
 
 #  Importing Authenticate_User() function to check the user is Authenticated user or not
-from routers.Authenticate_User import Authenticate_User
+from routers.authenticate_user import Authenticate_User
 
-# importing all variables in config file
-from  config.config import *
+# importing Shipment variables in config file for Shipment Collection
+from  config.config import Shipment
 
 # To create instance of APIRouter
 router = APIRouter()
@@ -34,24 +34,24 @@ def get_newShipment(request: Request, current_user: dict = Depends(get_current_u
 
 # NewShipment post router to take input from UserInterface
 @router.post("/newShipment", response_class=HTMLResponse, dependencies=[Depends(Authenticate_User)])
-def post_newShipment(request: Request, ShipmentNumber: str = Form(...),
-                    ContainerNumber: str = Form(...), 
+def post_newShipment(request: Request, ShipmentNumber: int = Form(...),
+                    ContainerNumber: int = Form(...), 
                     RouteDetails: str = Form(...), 
                     GoodsType: str = Form(...), 
                     DeviceName: str = Form(...), 
                     DeliveryDate: str = Form(...), 
-                    PO_Number: str = Form(...), 
-                    DeliveryNumber: str = Form(...), 
-                    NDC_Number: str = Form(...), 
-                    BatchId: str = Form(...), 
-                    SerialNumber: str = Form(...), 
+                    PO_Number: int = Form(...), 
+                    DeliveryNumber: int = Form(...), 
+                    NDC_Number: int = Form(...), 
+                    BatchId: int = Form(...), 
+                    SerialNumber: int = Form(...), 
                     ShipmentDescription: str = Form(...),
                     current_user: dict = Depends(get_current_user_from_cookie)):
     
     User_email=current_user["email"]
 
     # Checking Shipment Number size[size must be 7]
-    if (len(ShipmentNumber) != 7):
+    if (len(str(ShipmentNumber)) != 7):
         return template.TemplateResponse("NewShipment.html",{"request":request,"name":current_user['username'],"error":"Shipment Number must contain 7 digits......"})
     
     # Checking Uniqueness of Shipment Number

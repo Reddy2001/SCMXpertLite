@@ -4,14 +4,14 @@ from fastapi import Request, Depends,Form
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
-# importing all variables in config file
-from config.config import *
+# importing Users variables in config file for Users Collection
+from config.config import Users
 
 # Importing get_current_user_from_cookie method to take the username,email and expired time
 from routers.jwt import get_current_user_from_cookie
 
 #  Importing Authenticate_User() function to check the user is Authenticated user or not
-from routers.Authenticate_User import Authenticate_User
+from routers.authenticate_user import Authenticate_User
 
 
 # To create instance of APIRouter
@@ -27,11 +27,11 @@ router.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Change_User_Role router to display Change_User_Role page 
 @router.get("/changeUserRole", response_class=HTMLResponse, dependencies=[Depends(Authenticate_User)])
-def get_ChangeUserROle(request: Request,current_user: dict = Depends(get_current_user_from_cookie)):
+def get_ChangeUserRole(request: Request,current_user: dict = Depends(get_current_user_from_cookie)):
     try:
         # Except Admin anyone should not access that route
-        if current_user["role"] != "Admin":
-            return template.TemplateResponse("login.html",{"request":request,"name":current_user['username'],"message":"Only admin can access Change User Role page"})
+        if current_user["role"] != "Super Admin":
+            return template.TemplateResponse("Dashboard.html",{"request":request,"name":current_user['username'],"Error":"Only Super Admin can access Change User Role page","role":"User"})
         
         return template.TemplateResponse("Change_User_Role.html", {"request": request,"name":current_user['username']})
     except Exception as e:
@@ -40,7 +40,7 @@ def get_ChangeUserROle(request: Request,current_user: dict = Depends(get_current
 
 # Change_User_Role router to display Change_User_Role page 
 @router.post("/changeUserRole", response_class=HTMLResponse, dependencies=[Depends(Authenticate_User)])
-def post_ChangeUserROle(request: Request,
+def post_ChangeUserRole(request: Request,
                         Email:str = Form(...),
                         current_user: dict = Depends(get_current_user_from_cookie)):
     try:
@@ -58,7 +58,7 @@ def post_ChangeUserROle(request: Request,
         else:
 
             #Updating the role on the database
-            result= Users.update_one({"Email": user["Email"]} , {"$set": {"Role": "Admin"}})
+            Users.update_one({"Email": user["Email"]} , {"$set": {"Role": "Admin"}})
             return template.TemplateResponse("Change_User_Role.html",{"request":request,"name":current_user['username'],"message": "Successfully Changed role of User"})
         
     except Exception as e:

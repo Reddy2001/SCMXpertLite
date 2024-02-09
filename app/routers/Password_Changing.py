@@ -7,8 +7,8 @@ from fastapi.responses import HTMLResponse
 # importing "re" module in Python provides regular expression matching operations[It is used for password strength checking ]
 import re
 
-# importing all variables in config file
-from config.config import *
+# importing Users variables in config file for Users Collection
+from config.config import Users
 
 # importing CryptContext to hash the password
 from passlib.context import CryptContext
@@ -19,7 +19,7 @@ from routers.jwt import get_current_user_from_cookie
 
 
 #  Importing Authenticate_User() function to check the user is Authenticated user or not
-from routers.Authenticate_User import Authenticate_User
+from routers.authenticate_user import Authenticate_User
 
 # To create instance of APIRouter
 router = APIRouter()
@@ -64,6 +64,10 @@ def post_passwordChanging(request: Request, Old_Password:str = Form(...),
         # Validating Password and Re_Type Password is same or not
         elif(New_Password !=Re_type_Password):
             return template.TemplateResponse("Password_Changing.html",{"request":request,"name":current_user['username'],"error":"New Password and Re-type Password should be same"})
+        
+        # Checking length of password[Password must contain 8 characters]
+        elif (len(New_Password)<8):
+            return template.TemplateResponse("Password_Changing.html", {"request": request,"name":current_user['username'], "error":"Password should contain minimum 8 Characters......."})
         
         # Checking password have capital letter, small letter and special character
         elif not (re.search("[A-Z]",New_Password) and re.search("[a-z]",New_Password) and re.search(r'[!@#$%^&*(),.?":{}|<>]',New_Password)):

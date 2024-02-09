@@ -19,5 +19,3 @@ router.mount("/static", StaticFiles(directory="static"), name="static")
 @router.get("/gotoLogin")
 def get_GotoLogin(request: Request):
     return template.TemplateResponse("Goto_Login.html", {"request": request})
-
-

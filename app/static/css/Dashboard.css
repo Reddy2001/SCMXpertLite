@@ -369,6 +369,14 @@ body {
     display: block;
 }
 
+/* Error message printing */
+#Error{
+    color: red;
+    font-size: 29px;
+    text-align: center;
+    display: block;
+}
+
 /*View_Feedback*/
 #view_user_feedback button {
     padding: 5px 10px;

@@ -1,6 +1,5 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter,Request,Depends
 from fastapi.responses import HTMLResponse
-from fastapi import Request, Depends
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
@@ -9,6 +8,7 @@ from routers.jwt import get_current_user_from_cookie
 
 #  Importing Authenticate_User() function to check the user is Authenticated user or not
 from routers.authenticate_user import Authenticate_User
+
 
 # To create instance of APIRouter
 router = APIRouter()
@@ -20,13 +20,10 @@ template = Jinja2Templates(directory="templates")
 router.mount("/static", StaticFiles(directory="static"), name="static")
 
 
-#  Dashboard router to display Dashboard page 
-@router.get("/dashboard", response_class=HTMLResponse, dependencies=[Depends(Authenticate_User)])
-async def get_dashboard(request: Request, current_user: dict = Depends(get_current_user_from_cookie)):
-    
-    try:
-        if current_user:
-            return template.TemplateResponse("Dashboard.html", {"request": request, "name":current_user["username"],"role":current_user["role"]})
-    except Exception:
-        raise HTTPException(status_code=500, detail=f"Internal Server Error") 
+# contactSuperAdmin router to display Contact_Super_Admin page 
+@router.get("/contactSuperAdmin", response_class=HTMLResponse, dependencies=[Depends(Authenticate_User)])
+async def get_superAdmin(request: Request, current_user: dict = Depends(get_current_user_from_cookie)):
+
+    return template.TemplateResponse("Contact_Super_Admin.html", {"request": request,"name":current_user['username']})
+
 

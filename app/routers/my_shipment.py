@@ -9,11 +9,11 @@ from routers.jwt import get_current_user_from_cookie
 
 
 #  Importing Authenticate_User() function to check the user is Authenticated user or not
-from routers.Authenticate_User import Authenticate_User
+from routers.authenticate_user import Authenticate_User
 
 
-# importing all variables in config file
-from  config.config import *
+# importing Shipment variables in config file for Shipment Collection
+from  config.config import Shipment
 
 # To create instance of APIRouter
 router = APIRouter()
@@ -33,7 +33,7 @@ def get_MyShipment(request: Request, current_user: dict = Depends(get_current_us
     try:
 
         # Validating role, If role is "Admin"  --> Then Admin can watch all Shipment Details
-        if current_user["role"]== "Admin": 
+        if current_user["role"]== "Admin" or current_user['role'] == 'Super Admin': 
             ShipmentData=list(Shipment.find({}))
             return template.TemplateResponse("MyShipment.html",{"request":request,"ShipmentData":ShipmentData,"name":current_user["username"]})
         

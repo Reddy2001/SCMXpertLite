@@ -9,11 +9,11 @@ from routers.jwt import get_current_user_from_cookie
 
 
 #  Importing Authenticate_User() function to check the user is Authenticated user or not
-from routers.Authenticate_User import Authenticate_User
+from routers.authenticate_user import Authenticate_User
 
 
-# importing all variables in config file
-from  config.config import *
+# importing Feedback variables in config file for Feedback Collection
+from  config.config import Feedback
 
 # To create instance of APIRouter
 router = APIRouter()
@@ -30,13 +30,13 @@ router.mount("/static", StaticFiles(directory="static"), name="static")
 def get_View_User_Feedback(request: Request, current_user: dict = Depends(get_current_user_from_cookie)):
     
     try:
-        if current_user["role"] == 'Admin':
+        if current_user["role"] == 'Admin' or current_user["role"] == 'Super Admin':
             # Storing Feedback details from database on a list
             FeedbackData=list(Feedback.find({}))
             # print("Feedback data",FeedbackData)
             return template.TemplateResponse("View_User_Feedback.html", {"request": request,"FeedbackData":FeedbackData, "name":current_user["username"]})
         else:
-            return template.TemplateResponse("login.html",{"request":request,"message":"Only Admin can access the User's Feedback page"})
+            return template.TemplateResponse("Dashboard.html",{"request":request,"Error":"Only Admins can access the User's Feedback page","role":"User"})
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}") 

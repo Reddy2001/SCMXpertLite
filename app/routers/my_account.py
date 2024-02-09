@@ -4,15 +4,12 @@ from fastapi import Request, Depends
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
-# importing all variables in config fil
-from config.config import *
-
 # Importing get_current_user_from_cookie method to take the username,email and expired time
 from routers.jwt import get_current_user_from_cookie
 
 
 #  Importing Authenticate_User() function to check the user is Authenticated user or not
-from routers.Authenticate_User import Authenticate_User
+from routers.authenticate_user import Authenticate_User
 
 # To create instance of APIRouter
 router = APIRouter()

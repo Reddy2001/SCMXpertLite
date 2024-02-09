@@ -8,7 +8,7 @@ from fastapi.staticfiles import StaticFiles
 from routers.jwt import get_current_user_from_cookie
 
 #  Importing Authenticate_User() function to check the user is Authenticated user or not
-from routers.Authenticate_User import Authenticate_User
+from routers.authenticate_user import Authenticate_User
 
 # To create instance of APIRouter
 router = APIRouter()

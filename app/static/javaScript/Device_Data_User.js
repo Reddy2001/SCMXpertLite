@@ -30,18 +30,10 @@ document.addEventListener("DOMContentLoaded", function () {
     
     setTimeout(function () {
         document.querySelector('.content').style.display = 'block';
-    }, 750); 
+    }, 1000); 
     
     setTimeout(function () {
         document.querySelector('.redirect').style.display = 'block';
-    }, 1250); 
+    }, 2000); 
 });
 
-
-
-$(document).mousemove(function (event) {
-    $('.torch').css({
-      'top': event.pageY,
-      'left': event.pageX
-    });
-  });

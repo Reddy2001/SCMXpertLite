@@ -22,6 +22,7 @@ allStar.forEach((item, idx)=> {
 	})
 })
 
+// success alert message on feedback page 
 function success(){
 	window.alert("Feedback saved Successfully")
 }

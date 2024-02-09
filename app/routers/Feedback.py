@@ -10,10 +10,10 @@ from routers.jwt import get_current_user_from_cookie
 
 
 #  Importing Authenticate_User() function to check the user is Authenticated user or not
-from routers.Authenticate_User import Authenticate_User
+from routers.authenticate_user import Authenticate_User
 
-#importing all variables in config file
-from config.config import *
+#importing Feedback variables in config file for Feedback Collection
+from config.config import Feedback
 
 # To create instance of APIRouter
 router = APIRouter()

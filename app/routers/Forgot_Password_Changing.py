@@ -4,10 +4,10 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
 # importing storing_Email class to get email
-from routers.Forgot_Password import storing_Email
+from routers.forgot_password import storing_Email
 
-# importing all variables in config file
-from config.config import *
+# importing Users variables in config file for Users Collection
+from config.config import Users
 
 # importing CryptContext class to hash the password 
 from passlib.context import CryptContext
@@ -42,7 +42,7 @@ def get_forgotPasswordChanging(request: Request):
 def post_forgotPasswordChanging(request: Request, Password:str = Form(...), Re_type_Password:str = Form(...)):
     try:
         user=Users.find_one({"Email":storing_Email.EmailId})
-        # print(user)
+
         # Validating Password and Re_Type Password is same or not
         if(Password != Re_type_Password):
             return template.TemplateResponse("Forgot_Password_Changing.html",{"request":request,"error":"Password and Re-type Password should be same"})
@@ -51,6 +51,10 @@ def post_forgotPasswordChanging(request: Request, Password:str = Form(...), Re_t
         elif (pwd_context.verify(Password,user["Password"])):
             return template.TemplateResponse("Forgot_Password_Changing.html",{"request":request,"error":"Password should not be the Old password"})
         
+        # Checking length of password[Password must contain 8 characters]
+        elif len(Password)<8:
+            return template.TemplateResponse("Forgot_Password_Changing.html", {"request": request, "error":"Password should contain minimum 8 Characters......."})
+
          # Checking password have capital letter, small letter and special character
         elif not (re.search("[A-Z]",Password) and re.search("[a-z]",Password) and re.search(r'[!@#$%^&*(),.?":{}|<>]',Password)):
             return template.TemplateResponse("Password_Changing.html", {"request": request, "error":"Password must contain Capital letters, Small letters and Special character......."})

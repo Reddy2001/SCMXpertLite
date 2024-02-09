@@ -8,19 +8,18 @@
     <!-- Boxicons -->
     <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel='stylesheet'>
     <!-- My CSS -->
-    <link rel="stylesheet" href="/static/css/Password_Changing.css">
+    <link rel="stylesheet" href="/static/css/Contact_Super_Admin.css">
 
-    <title>MyAccount | Change Password</title>
+    <title>Dashboard</title>
 </head>
 
 <body>
-
 
     <!-- SIDEBAR -->
     <section id="sidebar">
         <a href="#" class="brand">
             <img src="/static/pictures/icon.webp" alt="" height="30px" width="30px" style="margin-left: 20px;">
-            <span class="text" style="margin-left: 10px;">SCMXpertLite</span>
+            <span class="text" style="margin-left: 10px;"> SCMXpertLite</span>
         </a>
         <ul class="side-menu top">
             <li>
@@ -29,14 +28,14 @@
                     <span class="text">Dashboard</span>
                 </a>
             </li>
-            <li class="active">
+            <li>
                 <a href="/myAccount">
                     <i class='bx bxs-group'></i>
                     <span class="text">My Account</span>
                 </a>
             </li>
             <li>
-                <a href="myShipment">
+                <a href="/myShipment">
                     <i class='bx bxs-shopping-bag-alt'></i>
                     <span class="text">My Shipment</span>
                 </a>
@@ -53,6 +52,13 @@
                     <span class="text">Device Data</span>
                 </a>
             </li>
+            <li class="active">
+                <a href="/contactSuperAdmin">
+                    <i class='bx bxs-contact'></i>
+                    <span class="text">Contact Super Admin</span>
+                </a>
+            </li>
+
 
         </ul>
         <ul class="side-menu">
@@ -73,7 +79,7 @@
         <!-- NAVBAR -->
         <nav>
             <i class='bx bx-menu'></i>
-            <h2>Hi <b style="color: blue;">{{name}}</b>, Change Your Password</h2>
+            <h2>Hi <b style="color: blue;">{{name}}</b>, View Super Admin Details</h2>
         </nav>
         <!-- NAVBAR -->
 
@@ -81,51 +87,46 @@
         <main>
             <div class="head-title">
                 <div class="left">
-                    <h1>Change Password</h1>
+                    <h1>Super Admin Details</h1>
                     <ul class="breadcrumb">
                         <li>
-                            <a href="#">Dashboard</a>
-                        </li>
-                        <li><i class='bx bx-chevron-right'></i></li>
-                        <li>
-                            <a class="active" href="/myAccount">My Account</a>
-                        </li>
-                        <li><i class='bx bx-chevron-right'></i></li>
-                        <li>
-                            <a class="active" href="/passwordChanging">Change Password</a>
+                            <a href="#">Contact Super Admin</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </main>
         <!-- MAIN -->
+
     </section>
     <!-- CONTENT -->
 
-    <div class="card">
-        <div id="error">{%if error%}{{error}}{%endif%}</div>
-        <h2>Change Your Password</h2>
-
-        <div class="form">
-            <form action="/passwordChanging" method="Post">
-                <label for="" id="label1">Enter Old Password:</label><br>
-                <input type="text" id="emailInput" name="Old_Password" placeholder="Enter Old Password" required
-                    style="margin-bottom: 20px;"><br>
-
-                <label for="" id="label1">Enter New Password:</label><br>
-                <input type="password" id="emailInput" name="New_Password" placeholder="Enter New Password" required
-                    style="margin-bottom: 20px;"><br>
-
-                <label for="" id="label2">Re-Enter New Password:</label> <br>
-                <input type="password" id="emailInput" name="Re_type_Password" placeholder="Re-type New Password"
-                    required> <br>
-
-                <button type="submit">Change Password</button>
-            </form>
+    <div class="box">
+        <div class="head">
+            <h2>Hi <b style="color: blue;">{{name}}</b>, If you have any Queries about SCMXpertLite, </h2>
+            <h2>Contact Super Admin Through the mail or use Feedback to convey the Query.</h2>
         </div>
+        <table >
+            <tr>
+                <th>Name</th>
+                <th>:</th>
+                <td> Amudala Reddy Sekhar </td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <th>:</th>
+                <td>amudalareddysekhar@gmail.com</td>
+            </tr>
+        </table>
+        <p id="information">Anyone want to become an admin, Send a mail to the Super Admin along with the Username and Valid reason to become an admin. <br> 
+        If you already an admin, Ignore this text.</p>
     </div>
 
-    <script>
+
+    <!-- getting role and it will not display to the user -->
+    <p id="role" style="display: none;">{{role}}</p>
+
+    <script >
         // Code for displaying active links
         const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
 
@@ -141,6 +142,8 @@
         });
 
 
+
+
         // TOGGLE SIDEBAR --> to display the sidebar after clicking the menu icon 
         const menuBar = document.querySelector('#content nav .bx.bx-menu');
         const sidebar = document.getElementById('sidebar');
@@ -149,19 +152,11 @@
             sidebar.classList.toggle('hide');
         })
 
-        // Getting error Message
-        const successMessage = document.getElementById('error');
+        const role = getElementById('role').innerText
+        if(role === "Admin"){
 
-        // Hiding the Error Message
-        function hideSuccessMessage() {
-            successMessage.style.display = 'none';
         }
 
-        // Delay in milliseconds (e.g., 3000 for 3 seconds)
-        const delay = 3000;
-
-        // Hiding Error message after Delay time
-        setTimeout(hideSuccessMessage, delay);
     </script>
 </body>
 

@@ -5,8 +5,8 @@ from jose import jwt
 from jose import ExpiredSignatureError, JWTError
 from starlette.exceptions import HTTPException as starletteException
 
-#importing all variables in config file
-from config.config import *
+#importing JWT_Token class in config file
+from config.config import JWT_Token
 
 
         #################      Using cookies to Store the Jwt Token    ######################
@@ -31,7 +31,7 @@ def create_jwt_token(user):
 
 '''Decoding JWT Token'''
 
-# getting the JWT token using oauth2_scheme to decode it [= Depends(oauth2_scheme)]
+# getting the JWT token using oauth2_scheme to decode it 
 def get_current_user(token: str ):
 
     try:

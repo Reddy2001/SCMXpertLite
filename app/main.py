@@ -7,22 +7,22 @@ from fastapi.staticfiles import StaticFiles
 from routers.home import router as home_route
 from routers.register import router as signup_route
 from routers.login import router as signin_route
-from routers.Dashboard import router as dashboard_route
-from routers.MyAccount import router as myAccount_route
-from routers.NewShipment import router as newShipment_route
-from routers.Feedback import router as Feedback_route
-from routers.MyShipment import router as myShipment_route
-from routers.DeviceData import router as deviceData_route
-from routers.Forgot_Password import router as forgotPassword_route
-from routers.OTP_Validation import router as otpValidation_route
-from routers.Forgot_Password_Changing import router as ForgotPasswordChanging_route
-from routers.Goto_Login import router as gotoLogin_route
+from routers.dashboard import router as dashboard_route
+from routers.my_account import router as myAccount_route
+from routers.new_shipment import router as newShipment_route
+from routers.feedback import router as Feedback_route
+from routers.my_shipment import router as myShipment_route
+from routers.device_data import router as deviceData_route
+from routers.forgot_password import router as forgotPassword_route
+from routers.otp_validation import router as otpValidation_route
+from routers.forgot_password_changing import router as ForgotPasswordChanging_route
+from routers.goto_login import router as gotoLogin_route
 from routers.logout import router as logout_route
-from routers.Password_Changing import router as passwordChanging_route
-from routers.Device_Data_User import router as deviceDataUser_route
-from routers.Change_User_Role import router as changeUserRole_route
-from routers.View_User_Feedback import router as viewUserFeedback
-
+from routers.password_changing import router as passwordChanging_route
+from routers.device_data_user import router as deviceDataUser_route
+from routers.change_user_role import router as changeUserRole_route
+from routers.view_user_feedback import router as viewUserFeedback
+from routers.contact_super_admin import router as superAdminPage
 
 
 # To create instance of fastapi
@@ -58,3 +58,4 @@ app.include_router(passwordChanging_route)
 app.include_router(deviceDataUser_route)
 app.include_router(changeUserRole_route)
 app.include_router(viewUserFeedback)
+app.include_router(superAdminPage)

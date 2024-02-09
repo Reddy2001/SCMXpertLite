@@ -1,12 +1,12 @@
 from fastapi import APIRouter
-from fastapi import Request,Depends,Form,Header
+from fastapi import Request,Depends,Form
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.responses import HTMLResponse,RedirectResponse
 
-# importing all variables in config file
-from config.config import *
+# importing Users variables in config file for Users Collection
+from config.config import Users
 
 # importing create_jwt_token method to create JWT Token
 from routers.jwt import create_jwt_token

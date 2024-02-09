@@ -28,7 +28,7 @@ menuBar.addEventListener('click', function () {
 
 // Role Based Change
 var role=document.getElementById('id').innerText;
-if (role === 'User'){
+if (role !== 'Super Admin'){
     document.getElementById('RoleChange').style.display = 'none';
 }
 

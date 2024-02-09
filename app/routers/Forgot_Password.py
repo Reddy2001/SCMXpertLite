@@ -8,8 +8,8 @@ from fastapi.staticfiles import StaticFiles
 import random
 import smtplib
 
-# importing all variables in config file
-from config.config import *
+# importing Users variables in config file for Users Collection and importing sender mail and sender mail password for sending mail
+from config.config import Users,Sender_Mail,Sender_Mail_Password
 
 
 # To create instance of APIRouter
@@ -95,9 +95,12 @@ async def post_ForgotPassword(request: Request,email: str=Form(...)):
 
             print("Receiver mail",receiver_email)
 
-            # smtp_connection method is called to send OTP mail to the User
-            server_setup= await smtp_connection(otp, receiver_email)
-            print("server setup",server_setup)
+            '''   
+            smtp_connection method is called to send OTP mail to the User.
+            Here we are commiting this method call, because this system don't have Gmail Access.
+            So it will not work in this system. If any system have Gmail Access this code will run effectively. 
+            '''
+            # server_setup= await smtp_connection(otp, receiver_email)
             
 
             return template.TemplateResponse("OTP_Validation.html", {"request": request})

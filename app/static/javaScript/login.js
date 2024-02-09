@@ -34,10 +34,8 @@ document.getElementById('refresh').addEventListener('click', function() {
 });
 
 // Initial captcha generation
-// document.getElementById('captcha').textContent = generateCaptcha();
 var txt = generateCaptcha();
 $('#captcha').text(txt);
-// $("#original_captcha").text(txt);
 document.getElementById('original_captcha').value=txt;
 console.log(document.getElementById('original_captcha').innerText);
 

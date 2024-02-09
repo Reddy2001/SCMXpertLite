@@ -15,7 +15,7 @@ Device_Data=Dname["Device_Data"]
 class JWT_Token:
     SECRET_KEY = "secret"
     ALGORITHM = "HS256"
-    EXPIRE_MINUTES=30
+    EXPIRE_MINUTES=60
 
 
 
