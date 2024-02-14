@@ -12,3 +12,4 @@ COPY . /SCMXPERTLITE/app/kafka/consumer
 
 # Set the default command to run the Python script "consumer.py" when the container starts
 CMD ["python", "consumer.py"]
+
