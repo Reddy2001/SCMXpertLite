@@ -24,7 +24,7 @@ router.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 # Generating OTP to send Mail
-def Generate_OTP():
+def generate_otp():
     otp=random.randint(100000,999999)
     return otp
 
@@ -61,14 +61,14 @@ otp = None
 
 # Forgot_Password router to display Forgot_Password page 
 @router.get("/forgotPassword")
-def get_ForgotPassword(request: Request):
+def get_forgot_password(request: Request):
     return template.TemplateResponse("Forgot_Password.html", {"request": request})
 
 
 
 # Forgot_Password router to take mail from the user and send mail to that entered mail
 @router.post("/forgotPassword")
-async def post_ForgotPassword(request: Request,email: str=Form(...)):
+async def post_forgot_password(request: Request,email: str=Form(...)):
 
     global receiver_email
     receiver_email = email
@@ -85,13 +85,13 @@ async def post_ForgotPassword(request: Request,email: str=Form(...)):
             global otp
 
             # Calling Generate_OTP method to generate otp
-            otp = Generate_OTP()
+            otp = generate_otp()
 
             print("genrated otp",otp)
 
             # Storing otp and receiver mail to validate the otp
-            OTP_NUMBER(otp)
-            EmailId(receiver_email)
+            otp_number(otp)
+            email_id(receiver_email)
 
             print("Receiver mail",receiver_email)
 
@@ -112,18 +112,18 @@ async def post_ForgotPassword(request: Request,email: str=Form(...)):
 
 
 # Storing OTP Number
-def OTP_NUMBER(Number):
-    storing_OTP.OTP=Number
+def otp_number(number):
+    storing_otp.otp=number
 
-class storing_OTP:
+class storing_otp:
     def __init__(self):
-        OTP=None
+        otp=None
 
 
 #storing Email Address
-def EmailId(email):
-    storing_Email.EmailId=email
+def email_id(email):
+    storing_email.email=email
 
-class storing_Email:
+class storing_email:
     def __init__(self):
-        EmailId=None
+        email=None

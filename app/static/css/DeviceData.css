@@ -168,11 +168,13 @@ body {
     color: var(--blue);
     border-radius: 25%;
 }
+
 #sidebar .side-menu li a:hover {
     color: var(--red);
     scale: 1.2;
     border-radius: 25%;
 }
+
 #sidebar .side-menu li a .bx {
     min-width: calc(60px - ((4px + 6px) * 2));
     display: flex;
@@ -219,55 +221,62 @@ body {
 /* NAVBAR */
 
 
-.OuterContainer{
+.OuterContainer {
     width: 1400px;
-    height: 800px;
+    height: 840px;
     border: 1px solid white;
-    margin-top: 40px;
+    margin-top: 30px;
     margin-left: 400px;
     background-color: white;
     border-radius: 30px;
     box-shadow: 0 0 20px var(--light-blue);
 }
-.innerContainer{
+
+.innerContainer {
     border: 1px solid #eecaa1d8;
-    margin: 50px 100px 30px;
+    margin: 30px 100px 30px;
     padding: 30px;
-    font-family:Arial, Helvetica, sans-serif ;
-    background-color:var(--light-blue);
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--light-blue);
     border-radius: 20px;
 }
-.innerContainer .heading{
+
+.innerContainer .heading {
     color: white;
     text-shadow: 0 0 10px black;
     text-align: center;
     font-size: large;
 }
-.innerContainer .selection{
+
+.innerContainer .selection {
     display: flex;
     justify-content: space-evenly;
     margin-top: 40px;
     font-size: larger;
 }
-.innerContainer .selection .input{
-    position:relative;
+
+.innerContainer .selection .input {
+    position: relative;
     right: 60px;
 }
-.innerContainer .selection label{
+
+.innerContainer .selection label {
     font-size: 22px;
     margin-bottom: 30px;
     position: relative;
     left: 10px;
     bottom: 10px;
 }
-.innerContainer .selection select{
+
+.innerContainer .selection select {
     width: 350px;
     padding: 10px 10px;
     font-size: 19px;
     border: none;
     border-radius: 10px;
 }
-.innerContainer .btn button{
+
+.innerContainer .btn button {
     padding: 10px 80px;
     font-size: large;
     color: white;
@@ -277,17 +286,18 @@ body {
     position: relative;
     top: 30px;
 }
-.innerContainer .btn button:hover{
+
+.innerContainer .btn button:hover {
     scale: 1.1;
 }
 
 .innerTable {
     max-width: 100%;
-    overflow-x: auto;
+    /* overflow-x: auto; */
     height: 420px;
 }
 
-table{
+table {
     margin-left: 20px;
     margin-bottom: 10px;
     padding: 5px 10px;
@@ -296,28 +306,98 @@ table{
     border-collapse: collapse;
     border-radius: 10px;
     text-align: center;
-    font-family:Arial, Helvetica, sans-serif ;
+    font-family: Arial, Helvetica, sans-serif;
 }
-th,td{
+
+th,
+td {
     padding: 10px 17px;
     width: auto;
     border: 1px solid white;
 
 }
-th{
+
+th {
     background-color: var(--blue);
     color: white;
     position: sticky;
     top: 0px;
 }
 
-td{
+td {
     background-color: var(--grey);
 }
 
-.id h2{
+.id h2 {
     color: rgb(245, 151, 10);
     text-align: center;
     margin-bottom: 15px;
 
+}
+
+/* .pagination {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.pagination .pageText {
+    padding: 15px 10px;
+}
+
+.pagination .pageNumbers {
+    float: right;
+    display: flex;
+}
+
+.pagination .pageNumbers a {
+    text-decoration: none;
+    color: #0077FC;
+    text-align: center;
+    padding: 15px 0px;
+}
+
+.pagination ul {
+    display: flex;
+}
+
+.pagination ul li {
+    list-style-type: none;
+    padding: 15px 5px;
+}
+
+.pagination ul li a {
+    text-decoration: none;
+    color: #0077FC;
+} */
+
+.pagination {
+    margin-top: 20px;
+    font-size: large;
+}
+
+.pagination .pageText {
+    text-align: center;
+}
+
+.pagination .pageNumbers {
+    display: flex;
+    color: #0077FC;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.pagination .pageNumbers ul {
+    display: flex;
+    margin: 0px 5px;
+}
+
+.pagination .pageNumbers ul li {
+    padding: 0px 10px;
+}
+
+.pagination ul li a {
+    text-decoration: none;
+    color: #0077FC;
 }

@@ -26,13 +26,14 @@ router.mount("/static", StaticFiles(directory="static"), name="static")
 # Instance for CryptContext
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated = "auto")
 
-
+# Assigning login.html in login variable
+login="login.html"
 
 # Signin router to display login page 
 @router.get("/signin")
 def get_signin(request: Request,error:str | None=None):
     # print("error",error)
-    return template.TemplateResponse("login.html", {"request": request,"message":error})
+    return template.TemplateResponse(login, {"request": request,"message":error})
 
 
 
@@ -45,7 +46,7 @@ async def signin(request: Request, forms: OAuth2PasswordRequestForm = Depends(),
 
     # Validating email is exits in database 
     if user==None:
-        return template.TemplateResponse("login.html",{"request":request, "message":"User doesn't exist...."})
+        return template.TemplateResponse(login,{"request":request, "message":"User doesn't exist...."})
     
     
     elif (pwd_context.verify(forms.password,user["Password"])):
@@ -68,9 +69,9 @@ async def signin(request: Request, forms: OAuth2PasswordRequestForm = Depends(),
 
             return response
         else:
-            return template.TemplateResponse("login.html",{"request":request,"message":"Please enter Valid captcha"})
+            return template.TemplateResponse(login,{"request":request,"message":"Please enter Valid captcha"})
     
     # If user entered wrong password Error Message will be printed on login page
     else:
-        return template.TemplateResponse("login.html",{"request":request, "message":"Email or Password is Incorrect...."})
+        return template.TemplateResponse(login,{"request":request, "message":"Email or Password is Incorrect...."})
     

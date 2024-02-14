@@ -273,20 +273,20 @@ body {
 .box .head{
     text-align: center;
     font-family: 'Lato', sans-serif;
-    color: #c71f81;
+    color: black;
 }
 
 .box table{
     transform: translate(700px);
     font-size: 29px;
     margin-top: 30px;
-    background-color: #28c0b8;
+    background-color: white;
     padding: 20px;
     border-radius: 10px;
 }
 .box p{
     text-align: center;
-    color: #ff9900;
+    color: rgb(201, 41, 41);
     font-size: large;
     margin-top: 20px;
 }

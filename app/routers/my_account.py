@@ -9,7 +9,7 @@ from routers.jwt import get_current_user_from_cookie
 
 
 #  Importing Authenticate_User() function to check the user is Authenticated user or not
-from routers.authenticate_user import Authenticate_User
+from routers.authenticate_user import authenticate_user
 
 # To create instance of APIRouter
 router = APIRouter()
@@ -22,8 +22,8 @@ router.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 # MyAccount router to display MyAccount page 
-@router.get("/myAccount", response_class=HTMLResponse, dependencies=[Depends(Authenticate_User)])
-def get_myAccount(request: Request, current_user: dict = Depends(get_current_user_from_cookie)):
+@router.get("/myAccount", response_class=HTMLResponse, dependencies=[Depends(authenticate_user)])
+def get_my_account(request: Request, current_user: dict = Depends(get_current_user_from_cookie)):
     try:
         if current_user:
             # print("Current User Is ",current_user)

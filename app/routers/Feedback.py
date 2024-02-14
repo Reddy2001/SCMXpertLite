@@ -10,7 +10,7 @@ from routers.jwt import get_current_user_from_cookie
 
 
 #  Importing Authenticate_User() function to check the user is Authenticated user or not
-from routers.authenticate_user import Authenticate_User
+from routers.authenticate_user import authenticate_user
 
 #importing Feedback variables in config file for Feedback Collection
 from config.config import Feedback
@@ -26,14 +26,14 @@ router.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 # Feedback router to display Feedback page 
-@router.get("/feedback", response_class=HTMLResponse, dependencies=[Depends(Authenticate_User)])
+@router.get("/feedback", response_class=HTMLResponse, dependencies=[Depends(authenticate_user)])
 def get_feedback(request: Request):
     return template.TemplateResponse("Feedback.html", {"request": request})
 
 
 
 # Feedback router to take the feedback and store it on the database
-@router.post("/feedback", response_class=HTMLResponse, dependencies=[Depends(Authenticate_User)])
+@router.post("/feedback", response_class=HTMLResponse, dependencies=[Depends(authenticate_user)])
 def post_feedback(request: Request, 
                   rating: str = Form(...), 
                   opinion: str = Form(...),
@@ -49,4 +49,4 @@ def post_feedback(request: Request,
         response= RedirectResponse("/dashboard", status_code=302)
         return response
     except Exception:
-        raise HTTPException(status_code=500, detail=f"Internal Server Error") 
+        raise HTTPException(status_code=500, detail="Internal Server Error") 

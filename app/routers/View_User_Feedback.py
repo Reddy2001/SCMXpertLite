@@ -9,7 +9,7 @@ from routers.jwt import get_current_user_from_cookie
 
 
 #  Importing Authenticate_User() function to check the user is Authenticated user or not
-from routers.authenticate_user import Authenticate_User
+from routers.authenticate_user import authenticate_user
 
 
 # importing Feedback variables in config file for Feedback Collection
@@ -26,8 +26,8 @@ router.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 # View_User_Feedback router to display View_User_Feedback page along with User's Feedback
-@router.get("/viewUserFeedback", response_class=HTMLResponse, dependencies=[Depends(Authenticate_User)])
-def get_View_User_Feedback(request: Request, current_user: dict = Depends(get_current_user_from_cookie)):
+@router.get("/viewUserFeedback", response_class=HTMLResponse, dependencies=[Depends(authenticate_user)])
+def get_view_user_feedback(request: Request, current_user: dict = Depends(get_current_user_from_cookie)):
     
     try:
         if current_user["role"] == 'Admin' or current_user["role"] == 'Super Admin':

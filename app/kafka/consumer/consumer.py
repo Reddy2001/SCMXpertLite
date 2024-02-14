@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# Database Connectivity
 url = os.getenv("URL")
 connection = pymongo.MongoClient(url)
 Device_Data = connection[os.getenv("Database_Name")]

@@ -4,7 +4,7 @@ version: '3'
 services:
  # scmxpertlite application service
   scmxpertlite:
-    image: scmxpertlite:latest
+    image: reddy21112001/scmxpertlite:latest
     ports:
       - "8067:8067"
        #networks that will be used to connect your services. Networks allow containers to communicate with each other using their service names as hostnames
@@ -33,14 +33,14 @@ services:
  
   # Server service
   server: 
-    image: server:latest
+    image: reddy21112001/server:latest
     ports:
       - "12121:12121"
     depends_on:
       - kafka
   # Producer service
   producer:
-    image: producer:latest
+    image: reddy21112001/producer:latest
     depends_on:
       - server
     environment:
@@ -51,7 +51,7 @@ services:
     
    # Consumer service
   consumer:
-    image: consumer:latest
+    image: reddy21112001/consumer:latest
     depends_on:
       - producer
     environment:

@@ -7,7 +7,7 @@ from fastapi.staticfiles import StaticFiles
 from routers.jwt import get_current_user_from_cookie
 
 #  Importing Authenticate_User() function to check the user is Authenticated user or not
-from routers.authenticate_user import Authenticate_User
+from routers.authenticate_user import authenticate_user
 
 
 # To create instance of APIRouter
@@ -21,9 +21,8 @@ router.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 # contactSuperAdmin router to display Contact_Super_Admin page 
-@router.get("/contactSuperAdmin", response_class=HTMLResponse, dependencies=[Depends(Authenticate_User)])
-async def get_superAdmin(request: Request, current_user: dict = Depends(get_current_user_from_cookie)):
-
+@router.get("/contactSuperAdmin", response_class=HTMLResponse, dependencies=[Depends(authenticate_user)])
+async def get_super_admin(request: Request, current_user: dict = Depends(get_current_user_from_cookie)):
     return template.TemplateResponse("Contact_Super_Admin.html", {"request": request,"name":current_user['username']})
 
 

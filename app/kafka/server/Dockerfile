@@ -8,7 +8,7 @@ WORKDIR /SCMXPERTLITE/app/kafka/server/
 COPY . /SCMXPERTLITE/app/kafka/server/
 
 # Install required Python packages using pip
-RUN pip install faker python-dotenv
+RUN pip install python-dotenv
 
 # Expose port 12121 for communication
 EXPOSE 12121

@@ -1,7 +1,6 @@
 import socket
 import json
 import time
-from faker import Faker
 import random
 from datetime import datetime
 import os
@@ -14,7 +13,8 @@ socket_connection = socket.socket()
 print("Socket Created")
 
 # Binding socket connection with local host and some random port number between 0 to 65535
-socket_connection.bind((os.getenv("host"), int(os.getenv("port"))))
+socket_connection.bind(("", int(os.getenv("port"))))
+# socket_connection.bind(("", int(os.getenv("port"))))
 
 # Server accepts 3 clients at a time 
 socket_connection.listen(3)
@@ -26,10 +26,6 @@ print("waiting for connections")
 client_socket, addr = socket_connection.accept()
 
 print(f'Connection from {addr} has been Established.')
-
-
-# Create a Faker instance
-fake = Faker()
 
 
 # Method to generate fake data
@@ -46,9 +42,11 @@ def generate_fake_data():
     # Generate random First Sensor Temperature with one decimal digit (assuming it's in Celsius)
     sensor_temperature = round(random.uniform(-10, 50), 1)
 
-     # Generate random city and state for Route From and Route To
-    route_from = f"{fake.state()}, {fake.country()}"
-    route_to = f"{fake.state()}, {fake.country()}"
+    Route_Fm=["Tirupati","Kadapa"]
+    Route_dest=["Nellore","Hyderabad"]
+    # Generate random city and state for Route From and Route To
+    route_from = str(random.choice(Route_Fm))
+    route_to = str(random.choice(Route_dest))
 
     # Get the current timestamp
     timestamp = datetime.now()

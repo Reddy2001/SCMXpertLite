@@ -72,3 +72,19 @@ def post_signup(request: Request, name: str = Form(...), mail: str = Form(...), 
 
     return template.TemplateResponse("login.html", {"request": request,"success":"Successfully registered, Please login to continue"})
 
+
+# from pydantic import BaseModel
+
+# # Pydantic schema for the Users
+# class UserDetail(BaseModel):
+#     name: str
+#     mail: str
+#     password: str
+#     con_password: str 
+
+# # Signup router to take inputs from the user and validate them, then stored in database
+# @router.post("/signup")
+# def post_signup(request:Request,user_details:UserDetail):
+
+#     print(user_details)
+#     return template.TemplateResponse("login.html", {"request":request})

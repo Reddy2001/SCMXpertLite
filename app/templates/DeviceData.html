@@ -53,7 +53,7 @@
                     <span class="text">Device Data</span>
                 </a>
             </li>
-            <li id="SuperAdmin" >
+            <li id="SuperAdmin">
                 <a href="/contactSuperAdmin">
                     <i class='bx bxs-contact'></i>
                     <span class="text">Contact Super Admin</span>
@@ -95,8 +95,8 @@
                 <div class="selection">
                     <div class="input">
                         <label for="Device_Id">Device Id*</label><br>
-                        <select name="DeviceId" id="DeviceId" >
-                            <option >Device Id</option>
+                        <select name="device_id" id="DeviceId">
+                            <option>Device Id</option>
                             <option value="1122334455">1122334455</option>
                             <option value="6677889900">6677889900</option>
                         </select>
@@ -136,9 +136,20 @@
                 </tbody>
             </table>
         </div>
+        <div class="pagination">
+            <div class="pageText">
+                <p id="pageText"></p>
+            </div>
+            <div class="pageNumbers">
+                <a href="#" class="prev" onclick="prevPage()">Previous</a>
+                <ul>
+                </ul>
+                <a href="#" class="next" onclick="nextPage()">Next</a>
+            </div>
+        </div>
     </div>
 
-    
+
 
     <script src="/static/javaScript/DeviceData.js"></script>
 </body>
