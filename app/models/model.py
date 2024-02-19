@@ -1,16 +1,16 @@
-
-from pydantic import BaseModel
+from pydantic import BaseModel,EmailStr
 
 # Pydantic schema for the Users
 class UserDetail(BaseModel):
-    name: str
-    mail: str
-    password: str
-    con_password: str
+    UserName: str
+    Email: EmailStr
+    Password: str
+    Role: str
 
 
 # Pydantic schema for the Shipments
-class Shipment(BaseModel):
+class ShipmentDetails(BaseModel):
+    Email:str
     ShipmentNumber: int
     ContainerNumber: int
     RouteDetails: str
@@ -23,4 +23,11 @@ class Shipment(BaseModel):
     BatchId: int
     SerialNumber: int
     ShipmentDescription: str
-    
+
+
+# Pydantic schema for the feedback    
+class feedbackDetails(BaseModel):
+    name: str
+    Email: str
+    rating: int
+    opinion: str

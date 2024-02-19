@@ -18,7 +18,7 @@ from config.config import JWT_Token
 def create_jwt_token(user):
 
     credentials = {"sub": user["UserName"],"Email":user["Email"],"Role":user["Role"]}
-    expires = timedelta(minutes=JWT_Token.EXPIRE_MINUTES)
+    expires = timedelta(minutes=JWT_Token.EXPIRE_MINUTES) # Expire time will be 60 min
     to_encode = credentials.copy()
     expire = datetime.utcnow() + expires
     to_encode.update({"exp": expire})

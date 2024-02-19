@@ -51,7 +51,7 @@ try:
         except json.JSONDecodeError as e:
             print(f"Error decoding JSON: {e}")
 
-        # Commit the offset
+        # Commiting
         consumer.commit()
 
 except KeyboardInterrupt:

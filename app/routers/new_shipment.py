@@ -4,6 +4,9 @@ from fastapi import Request, Depends,Form
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
+# importing ShipmentDetails model from models file
+from models.model import ShipmentDetails
+
 # Importing get_current_user_from_cookie method to take the username,email and expired time
 from routers.jwt import get_current_user_from_cookie
 
@@ -50,7 +53,7 @@ def post_new_shipment(request: Request, shipment_number: int = Form(...),
                     current_user: dict = Depends(get_current_user_from_cookie)):
 
     try:
-
+        
         user_email=current_user["email"]
 
         # Checking Shipment Number size[size must be 7]
@@ -62,26 +65,23 @@ def post_new_shipment(request: Request, shipment_number: int = Form(...),
             return template.TemplateResponse(newShipments,{"request":request,"name":current_user['username'],"error":"Shipment Number should be unique....."})
         
 
-        # Pushing data to the new_shipment_data dictionary
-        new_shipment_data={
-            "Email":user_email,
-            "ShipmentNumber":shipment_number,
-            "ContainerNumber":container_number,
-            "RouteDetails":route_details,
-            "GoodsType":goods_type,
-            "DeviceName":device_name,
-            "DeliveryDate":delivery_date,
-            "PO_Number":po_number,
-            "DeliveryNumber":delivery_number,
-            "NDC_Number":ndc_number,
-            "BatchId":batch_id,
-            "SerialNumber":serial_number,
-            "ShipmentDescription": shipment_description
-        }
-                
+        # Schema for ShipmentDetails
+        new_shipment_data=ShipmentDetails(Email=user_email,
+                                          ShipmentNumber=shipment_number,
+                                          ContainerNumber=container_number,
+                                          RouteDetails=route_details,
+                                          GoodsType=goods_type,
+                                          DeviceName=device_name,
+                                          DeliveryDate=delivery_date,
+                                          PO_Number=po_number,
+                                          DeliveryNumber=delivery_number,
+                                          NDC_Number=ndc_number,
+                                          BatchId=batch_id,
+                                          SerialNumber=serial_number,
+                                          ShipmentDescription=shipment_description)
 
         # Pushing data to the database[Shipment Collection]
-        Shipment.insert_one(new_shipment_data)
+        Shipment.insert_one(dict(new_shipment_data))
         msg="New Shipment registered successfully...."
         return template.TemplateResponse(newShipments,{"request":request,"name":current_user['username'],"message":msg})
     except Exception:

@@ -32,7 +32,7 @@ def get_change_user_role(request: Request,current_user: dict = Depends(get_curre
     try:
         # Except Admin anyone should not access that route
         if current_user["role"] != "Super Admin":
-            return template.TemplateResponse("Dashboard.html",{"request":request,"name":current_user['username'],"Error":"Only Super Admin can access Change User Role page","role":"User"})
+            return template.TemplateResponse("Dashboard.html",{"request":request,"name":current_user['username'],"Error":"Only Super Admin can access Change User Role page","role":current_user['role']})
         
         return template.TemplateResponse(change_user_role, {"request": request,"name":current_user['username']})
     except Exception as e:
@@ -45,23 +45,33 @@ def post_change_user_role(request: Request,
                         email:str = Form(...),
                         current_user: dict = Depends(get_current_user_from_cookie)):
     try:
-        # Fletching user details from DB based on email
-        user=Users.find_one({"Email":email})
+        # checking role
+        if current_user['role'] == 'Super Admin':
 
-        # Checking the user is Exists based on the given Email
-        if user is None:
-            return template.TemplateResponse(change_user_role, {"request": request,"name":current_user['username'],"error":"Email Doesn't Exist.."})
-        
-        elif user["Role"] == "Admin":
-            return template.TemplateResponse(change_user_role,{"request":request,"name":current_user['username'],"error":"He/She is already an Admin"})
-        
-        # If user exists admin will change the role of user
+            # Fletching user details from DB based on email
+            user=Users.find_one({"Email":email})
+
+            # Checking the user is Exists based on the given Email
+            if user is None:
+                return template.TemplateResponse(change_user_role, {"request": request,"name":current_user['username'],"error":"Email Doesn't Exist.."})
+            
+            # If role of user is already an admin then print error message 
+            elif user["Role"] == "Admin":
+                return template.TemplateResponse(change_user_role,{"request":request,"name":current_user['username'],"error":"He/She is already an Admin"})
+            
+            # If role is super admin then print error message
+            elif user['Role'] == "Super Admin":
+                return template.TemplateResponse(change_user_role,{"request":request,"name":current_user['username'],"error":"Its not possible to make Super Admin as Admin"}) 
+
+            # If user exists admin will change the role of user
+            else:
+
+                #Updating the role on the database
+                Users.update_one({"Email": user["Email"]} , {"$set": {"Role": "Admin"}})
+                return template.TemplateResponse(change_user_role,{"request":request,"name":current_user['username'],"message": "Successfully Changed role of User"})
+            
         else:
-
-            #Updating the role on the database
-            Users.update_one({"Email": user["Email"]} , {"$set": {"Role": "Admin"}})
-            return template.TemplateResponse(change_user_role,{"request":request,"name":current_user['username'],"message": "Successfully Changed role of User"})
-        
+            return template.TemplateResponse("Dashboard.html",{"request":request,"name":current_user['username'],"Error":"Only Super Admin can access Change User Role page","role":current_user['role']})
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}") 
 
