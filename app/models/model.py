@@ -7,6 +7,11 @@ class UserDetail(BaseModel):
     Password: str
     Role: str
 
+    @validator('Password')
+    def validate_password(cls,u):
+        if len(str(u)) < 8:
+            raise ValueError('Password should contain minimum 8 Characters.......')
+        return u
 
 # Pydantic schema for the Shipments [It is used in new_shipment.py]
 class ShipmentDetails(BaseModel):
@@ -23,6 +28,12 @@ class ShipmentDetails(BaseModel):
     BatchId: int
     SerialNumber: int
     ShipmentDescription: str
+
+    @validator('ShipmentNumber')
+    def validate_ShipmentNumber(cls,v):
+        if len(str(v)) != 7:
+            raise ValueError('Shipment Number must contain 7 digits......')
+        return v
 
 
 # Pydantic schema for the feedback [It is used in feedback.py]    
