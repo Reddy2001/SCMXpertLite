@@ -32,7 +32,7 @@ def get_my_shipment(request: Request, current_user: dict = Depends(get_current_u
 
     try:
 
-        # Validating role, If role is "Admin"  --> Then Admin can watch all Shipment Details
+        # Validating role, If role is "Admin" or "Super Admin" --> Then Admin and Super Admin can watch all Shipment Details
         if current_user["role"]== "Admin" or current_user['role'] == 'Super Admin': 
             shipment_data=list(Shipment.find({}))
             return template.TemplateResponse("MyShipment.html",{"request":request,"ShipmentData":shipment_data,"name":current_user["username"],"role":current_user['role']})

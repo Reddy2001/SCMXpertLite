@@ -32,9 +32,9 @@ def get_view_user_feedback(request: Request, current_user: dict = Depends(get_cu
     try:
         if current_user["role"] == 'Admin' or current_user["role"] == 'Super Admin':
             # Storing Feedback details from database on a list
-            FeedbackData=list(Feedback.find({}))
+            feedback_data=list(Feedback.find({}))
             # print("Feedback data",FeedbackData)
-            return template.TemplateResponse("View_User_Feedback.html", {"request": request,"FeedbackData":FeedbackData, "name":current_user["username"]})
+            return template.TemplateResponse("View_User_Feedback.html", {"request": request,"FeedbackData":feedback_data, "name":current_user["username"]})
         else:
             return template.TemplateResponse("Dashboard.html",{"request":request,"Error":"Only Admins can access the User's Feedback page","role":"User"})
         

@@ -12,7 +12,7 @@ Device_Data=Dname["Device_Data"]
 
 
 #JWT Token variables
-class JWT_Token:
+class JwtToken:
     SECRET_KEY = "secret"
     ALGORITHM = "HS256"
     EXPIRE_MINUTES=60

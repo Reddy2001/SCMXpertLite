@@ -27,10 +27,12 @@ template = Jinja2Templates(directory="templates")
 router.mount("/static", StaticFiles(directory="static"), name="static")
 
 
+register_page="register.html"
+
 # Signup router to display register page
 @router.get("/signup")
 def get_signup(request: Request):
-    return template.TemplateResponse("register.html", {"request": request})
+    return template.TemplateResponse(register_page, {"request": request})
 
 
 # Signup router to take inputs from the user and validate them, then stored in database
@@ -38,44 +40,37 @@ def get_signup(request: Request):
 def post_signup(request: Request, name: str = Form(...), mail: str = Form(...), password: str = Form(...), con_password: str = Form(...)):
     try:
 
-        # Checking length for the username[Username must be have more than 6 characters]
-        if len(name)<6:
-            return template.TemplateResponse("register.html", {"request": request, "error":"Username must consists more than 6 characters......."})
-        
-        # Checking length of password[Password must contain 8 characters]
-        elif len(password)<8:
-            return template.TemplateResponse("register.html", {"request": request, "error":"Password should contain minimum 8 Characters......."})
-        
+        # Schema for userDetails
+        data=UserDetail(UserName=name,Email=mail,Password=password,Role="User")
+       
+
         # Checking password have capital letter, small letter and special character
-        elif not (re.search("[A-Z]",password) and re.search("[a-z]",password) and re.search(r'[!@#$%^&*(),.?":{}|<>]',password)):
-            return template.TemplateResponse("register.html", {"request": request, "error":"Password must contain Capital letters, Small letters and Special character......."})
+        if not (re.search("[A-Z]",password) and re.search("[a-z]",password) and re.search(r'[!@#$%^&*(),.?":{}|<>]',password)):
+            return template.TemplateResponse(register_page, {"request": request, "error":"Password must contain Capital letters, Small letters and Special character......."})
         
         # Validating password and conform password is same or not
         elif password != con_password:
-            return template.TemplateResponse("register.html", {"request": request, "error":"Password and Conform Password should be same......."})
+            return template.TemplateResponse(register_page, {"request": request, "error":"Password and Conform Password should be same......."})
         
         # Checking mail is Unique or not 
         elif Users.find_one({"Email":mail}):
-            return template.TemplateResponse("register.html", {"request": request, "error":"Email already exists......."})
+            return template.TemplateResponse(register_page, {"request": request, "error":"Email already exists......."})
         
         # Hashing the Password 
         hash_password = pwd_context.hash(password)
 
+        userData=dict(data)
 
-        try:
-            # Schema for userDetails
-            data=UserDetail(UserName=name,Email=mail,Password=hash_password,Role="User")
+        # updating password with hash password on the userData
+        userData['Password']=hash_password
 
-            
-        except:
-            return template.TemplateResponse("register.html", {"request": request, "error":"Email format is Wrong......."})
-
-
-        # Pushing data by converting it into dictionary to the database collection
-        Users.insert_one(dict(data))
+        # Pushing userData to the UserData collection 
+        Users.insert_one(userData)
 
         return template.TemplateResponse("login.html", {"request": request,"success":"Successfully registered, Please login to continue"})
     
-
-    except:
+    except ValueError:
+        return template.TemplateResponse(register_page, {"request": request, "error":"Password should contain minimum 8 Characters......."})
+    
+    except Exception:
         raise HTTPException(status_code=500, detail="Internal Server Error") 

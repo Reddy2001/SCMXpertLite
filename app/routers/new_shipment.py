@@ -53,20 +53,8 @@ def post_new_shipment(request: Request, shipment_number: int = Form(...),
                     current_user: dict = Depends(get_current_user_from_cookie)):
 
     try:
-        
-        user_email=current_user["email"]
-
-        # Checking Shipment Number size[size must be 7]
-        if (len(str(shipment_number)) != 7):
-            return template.TemplateResponse(newShipments,{"request":request,"name":current_user['username'],"error":"Shipment Number must contain 7 digits......"})
-        
-        # Checking Uniqueness of Shipment Number
-        elif Shipment.find_one({"ShipmentNumber":shipment_number}):
-            return template.TemplateResponse(newShipments,{"request":request,"name":current_user['username'],"error":"Shipment Number should be unique....."})
-        
-
         # Schema for ShipmentDetails
-        new_shipment_data=ShipmentDetails(Email=user_email,
+        new_shipment_data=ShipmentDetails(Email=current_user["email"],
                                           ShipmentNumber=shipment_number,
                                           ContainerNumber=container_number,
                                           RouteDetails=route_details,
@@ -80,10 +68,18 @@ def post_new_shipment(request: Request, shipment_number: int = Form(...),
                                           SerialNumber=serial_number,
                                           ShipmentDescription=shipment_description)
 
+        # Checking Uniqueness of Shipment Number
+        if Shipment.find_one({"ShipmentNumber":shipment_number}):
+            return template.TemplateResponse(newShipments,{"request":request,"name":current_user['username'],"error":"Shipment Number should be unique....."})
+        
         # Pushing data to the database[Shipment Collection]
         Shipment.insert_one(dict(new_shipment_data))
         msg="New Shipment registered successfully...."
         return template.TemplateResponse(newShipments,{"request":request,"name":current_user['username'],"message":msg})
-    except Exception:
-         raise HTTPException(status_code=400, detail="Missing Parameters")
+    
 
+    except ValueError:
+        return template.TemplateResponse(newShipments,{"request":request,"name":current_user['username'],"error":"Shipment Number must contain 7 digits......"})
+    
+    except Exception:
+        raise HTTPException(status_code=500, detail="Internal Server Error") 

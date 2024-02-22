@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse,RedirectResponse
 
 # importing feedbackDetails model from models file
-from models.model import feedbackDetails
+from models.model import FeedbackDetails
 
 # Importing get_current_user_from_cookie method to take the username,email and expired time
 from routers.jwt import get_current_user_from_cookie
@@ -42,7 +42,7 @@ def post_feedback(request: Request,
                   current_user: dict = Depends(get_current_user_from_cookie)):
     try:
         # schema for feedback
-        feedback=feedbackDetails(name=current_user['username'],
+        feedback=FeedbackDetails(name=current_user['username'],
                                  Email=current_user["email"],
                                  rating=rating,
                                  opinion=opinion)
