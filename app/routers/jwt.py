@@ -6,7 +6,7 @@ from jose import ExpiredSignatureError, JWTError
 from starlette.exceptions import HTTPException as starletteException
 
 #importing JWT_Token class in config file
-from config.config import JWT_Token
+from config.config import JwtToken
 
 
         #################      Using cookies to Store the Jwt Token    ######################
@@ -18,11 +18,11 @@ from config.config import JWT_Token
 def create_jwt_token(user):
 
     credentials = {"sub": user["UserName"],"Email":user["Email"],"Role":user["Role"]}
-    expires = timedelta(minutes=JWT_Token.EXPIRE_MINUTES)
+    expires = timedelta(minutes=JwtToken.EXPIRE_MINUTES) # Expire time will be 60 min
     to_encode = credentials.copy()
     expire = datetime.utcnow() + expires
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, JWT_Token.SECRET_KEY, algorithm=JWT_Token.ALGORITHM)
+    encoded_jwt = jwt.encode(to_encode, JwtToken.SECRET_KEY, algorithm=JwtToken.ALGORITHM)
     return encoded_jwt
 
 
@@ -35,7 +35,7 @@ def create_jwt_token(user):
 def get_current_user(token: str ):
 
     try:
-        payload = jwt.decode(token, JWT_Token.SECRET_KEY, algorithms=[JWT_Token.ALGORITHM])
+        payload = jwt.decode(token, JwtToken.SECRET_KEY, algorithms=[JwtToken.ALGORITHM])
         # print("payload is",payload)
         return payload
     except ExpiredSignatureError:

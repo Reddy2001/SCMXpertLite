@@ -1,9 +1,11 @@
 from fastapi import APIRouter
-from fastapi import Request,Form
+from fastapi import Request,Form,HTTPException
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from passlib.context import CryptContext
 
+# importing UserDetails from models file
+from models.model import UserDetail
 
 # importing Users variables in config file for Users Collection
 from  config.config import Users
@@ -25,66 +27,50 @@ template = Jinja2Templates(directory="templates")
 router.mount("/static", StaticFiles(directory="static"), name="static")
 
 
+register_page="register.html"
+
 # Signup router to display register page
 @router.get("/signup")
 def get_signup(request: Request):
-    return template.TemplateResponse("register.html", {"request": request})
+    return template.TemplateResponse(register_page, {"request": request})
 
 
 # Signup router to take inputs from the user and validate them, then stored in database
 @router.post("/signup")
 def post_signup(request: Request, name: str = Form(...), mail: str = Form(...), password: str = Form(...), con_password: str = Form(...)):
+    try:
 
-    # Checking length for the username[Username must be have more than 6 characters]
-    if len(name)<6:
-        return template.TemplateResponse("register.html", {"request": request, "error":"Username must consists more than 6 characters......."})
+        # Schema for userDetails
+        data=UserDetail(UserName=name,Email=mail,Password=password,Role="User")
+       
+
+        # Checking password have capital letter, small letter and special character
+        if not (re.search("[A-Z]",password) and re.search("[a-z]",password) and re.search(r'[!@#$%^&*(),.?":{}|<>]',password)):
+            return template.TemplateResponse(register_page, {"request": request, "error":"Password must contain Capital letters, Small letters and Special character......."})
+        
+        # Validating password and conform password is same or not
+        elif password != con_password:
+            return template.TemplateResponse(register_page, {"request": request, "error":"Password and Conform Password should be same......."})
+        
+        # Checking mail is Unique or not 
+        elif Users.find_one({"Email":mail}):
+            return template.TemplateResponse(register_page, {"request": request, "error":"Email already exists......."})
+        
+        # Hashing the Password 
+        hash_password = pwd_context.hash(password)
+
+        userData=dict(data)
+
+        # updating password with hash password on the userData
+        userData['Password']=hash_password
+
+        # Pushing userData to the UserData collection 
+        Users.insert_one(userData)
+
+        return template.TemplateResponse("login.html", {"request": request,"success":"Successfully registered, Please login to continue"})
     
-    # Checking length of password[Password must contain 8 characters]
-    elif len(password)<8:
-        return template.TemplateResponse("register.html", {"request": request, "error":"Password should contain minimum 8 Characters......."})
+    except ValueError:
+        return template.TemplateResponse(register_page, {"request": request, "error":"Password should contain minimum 8 Characters......."})
     
-    # Checking password have capital letter, small letter and special character
-    elif not (re.search("[A-Z]",password) and re.search("[a-z]",password) and re.search(r'[!@#$%^&*(),.?":{}|<>]',password)):
-        return template.TemplateResponse("register.html", {"request": request, "error":"Password must contain Capital letters, Small letters and Special character......."})
-    
-    # Validating password and conform password is same or not
-    elif password != con_password:
-        return template.TemplateResponse("register.html", {"request": request, "error":"Password and Conform Password should be same......."})
-    
-    # Checking mail is Unique or not 
-    elif Users.find_one({"Email":mail}):
-        return template.TemplateResponse("register.html", {"request": request, "error":"Email already exists......."})
-    
-    # Hashing the Password 
-    hash_password = pwd_context.hash(password)
-
-
-    # Pushing data to the data dictionary
-    data={
-        "UserName":name,
-        "Role":"User",
-        "Email":mail,
-        "Password":hash_password
-    }
-
-    # Pushing data dictionary to the database collection
-    Users.insert_one(data)
-
-    return template.TemplateResponse("login.html", {"request": request,"success":"Successfully registered, Please login to continue"})
-
-
-# from pydantic import BaseModel
-
-# # Pydantic schema for the Users
-# class UserDetail(BaseModel):
-#     name: str
-#     mail: str
-#     password: str
-#     con_password: str 
-
-# # Signup router to take inputs from the user and validate them, then stored in database
-# @router.post("/signup")
-# def post_signup(request:Request,user_details:UserDetail):
-
-#     print(user_details)
-#     return template.TemplateResponse("login.html", {"request":request})
+    except Exception:
+        raise HTTPException(status_code=500, detail="Internal Server Error") 

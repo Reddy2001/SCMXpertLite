@@ -1,16 +1,16 @@
+from pydantic import BaseModel,EmailStr,validator
 
-from pydantic import BaseModel
-
-# Pydantic schema for the Users
+# Pydantic schema for the Users [It is used in register.py]
 class UserDetail(BaseModel):
-    name: str
-    mail: str
-    password: str
-    con_password: str
+    UserName: str
+    Email: EmailStr
+    Password: str
+    Role: str
 
 
-# Pydantic schema for the Shipments
-class Shipment(BaseModel):
+# Pydantic schema for the Shipments [It is used in new_shipment.py]
+class ShipmentDetails(BaseModel):
+    Email:str
     ShipmentNumber: int
     ContainerNumber: int
     RouteDetails: str
@@ -23,4 +23,11 @@ class Shipment(BaseModel):
     BatchId: int
     SerialNumber: int
     ShipmentDescription: str
-    
+
+
+# Pydantic schema for the feedback [It is used in feedback.py]    
+class FeedbackDetails(BaseModel):
+    name: str
+    Email: str
+    rating: int
+    opinion: str

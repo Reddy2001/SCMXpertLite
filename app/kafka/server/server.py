@@ -13,8 +13,8 @@ socket_connection = socket.socket()
 print("Socket Created")
 
 # Binding socket connection with local host and some random port number between 0 to 65535
-socket_connection.bind(("", int(os.getenv("port"))))
 # socket_connection.bind(("", int(os.getenv("port"))))
+socket_connection.bind((os.getenv("host"), int(os.getenv("port"))))
 
 # Server accepts 3 clients at a time 
 socket_connection.listen(3)
@@ -31,10 +31,10 @@ print(f'Connection from {addr} has been Established.')
 # Method to generate fake data
 def generate_fake_data():
 
-    id=[1122334455, 6677889900]
+    device=[1122334455, 6677889900]
 
     # choosing id 
-    device_id = str(random.choice(id))
+    device_id = int(random.choice(device))
 
     # Generate random Battery Level (assuming it's a percentage between 0 and 100)
     battery_level = round(random.uniform(0, 100), 2)
@@ -42,11 +42,12 @@ def generate_fake_data():
     # Generate random First Sensor Temperature with one decimal digit (assuming it's in Celsius)
     sensor_temperature = round(random.uniform(-10, 50), 1)
 
-    Route_Fm=["Tirupati","Kadapa"]
-    Route_dest=["Nellore","Hyderabad"]
-    # Generate random city and state for Route From and Route To
-    route_from = str(random.choice(Route_Fm))
-    route_to = str(random.choice(Route_dest))
+    route_fm=["Tirupati","Kadapa"]
+    route_dest=["Nellore","Hyderabad"]
+
+    # Choosing route_from and route_to
+    route_from = str(random.choice(route_fm))
+    route_to = str(random.choice(route_dest))
 
     # Get the current timestamp
     timestamp = datetime.now()
@@ -69,6 +70,8 @@ def generate_fake_data():
 
 while True:
     try:
+
+        # getting data from generate_fake_data() method
         data = generate_fake_data()
         
         # Serializing the data to json string and enconding it with UTF[It suitable for storage or transmission]

@@ -35,18 +35,20 @@ router.mount("/static", StaticFiles(directory="static"), name="static")
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated = "auto")
    
 
+password_changing="Password_Changing.html"
+
 # Password Changing router to display Password_Changing page 
 @router.get("/passwordChanging", response_class=HTMLResponse, dependencies=[Depends(authenticate_user)])
 def get_password_changing(request: Request,current_user: dict = Depends(get_current_user_from_cookie)):
-    return template.TemplateResponse("Password_Changing.html", {"request": request,"name":current_user['username']})
+    return template.TemplateResponse(password_changing, {"request": request,"name":current_user['username']})
 
 
 
 # Password Changing router to display Password_Changing page 
 @router.post("/passwordChanging", response_class=HTMLResponse, dependencies=[Depends(authenticate_user)])
-def post_password_changing(request: Request, Old_Password:str = Form(...), 
-                          New_Password:str = Form(...), 
-                          Re_type_Password:str = Form(...),
+def post_password_changing(request: Request, old_password:str = Form(...), 
+                          new_password:str = Form(...), 
+                          re_type_password:str = Form(...),
                           current_user: dict = Depends(get_current_user_from_cookie)):
     try:
 
@@ -54,28 +56,28 @@ def post_password_changing(request: Request, Old_Password:str = Form(...),
         user = Users.find_one({"Email":current_user["email"]})
 
         # Checking Old Password with the Password present on the database
-        if not (pwd_context.verify(Old_Password,user["Password"])):
-            return template.TemplateResponse("Password_Changing.html",{"request":request,"name":current_user['username'],"error":"Old Password is not matched with Original Password"})
+        if not (pwd_context.verify(old_password,user["Password"])):
+            return template.TemplateResponse(password_changing,{"request":request,"name":current_user['username'],"error":"Old Password is not matched with Original Password"})
         
         # Checking New Password is Different from Old password or not
-        elif (Old_Password == New_Password):
-            return template.TemplateResponse("Password_Changing.html",{"request":request,"name":current_user['username'],"error":"New Password Should not be the Old Password"})
+        elif (old_password == new_password):
+            return template.TemplateResponse(password_changing,{"request":request,"name":current_user['username'],"error":"New Password Should not be the Old Password"})
 
         # Validating Password and Re_Type Password is same or not
-        elif(New_Password !=Re_type_Password):
-            return template.TemplateResponse("Password_Changing.html",{"request":request,"name":current_user['username'],"error":"New Password and Re-type Password should be same"})
+        elif(new_password !=re_type_password):
+            return template.TemplateResponse(password_changing,{"request":request,"name":current_user['username'],"error":"New Password and Re-type Password should be same"})
         
         # Checking length of password[Password must contain 8 characters]
-        elif (len(New_Password)<8):
-            return template.TemplateResponse("Password_Changing.html", {"request": request,"name":current_user['username'], "error":"Password should contain minimum 8 Characters......."})
+        elif (len(new_password)<8):
+            return template.TemplateResponse(password_changing, {"request": request,"name":current_user['username'], "error":"Password should contain minimum 8 Characters......."})
         
         # Checking password have capital letter, small letter and special character
-        elif not (re.search("[A-Z]",New_Password) and re.search("[a-z]",New_Password) and re.search(r'[!@#$%^&*(),.?":{}|<>]',New_Password)):
-            return template.TemplateResponse("Password_Changing.html", {"request": request,"name":current_user['username'], "error":"Password must contain Capital letters, Small letters and Special character......."})
+        elif not (re.search("[A-Z]",new_password) and re.search("[a-z]",new_password) and re.search(r'[!@#$%^&*(),.?":{}|<>]',new_password)):
+            return template.TemplateResponse(password_changing, {"request": request,"name":current_user['username'], "error":"Password must contain Capital letters, Small letters and Special character......."})
         
         else:
             # Hashing the password
-            hash_password = pwd_context.hash(New_Password)
+            hash_password = pwd_context.hash(new_password)
 
             #Updating the new password on the database
             Users.update_one({"Email": current_user["email"]} , {"$set": {"Password": hash_password}})
