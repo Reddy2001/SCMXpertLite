@@ -30,7 +30,7 @@ def get_device_data(request: Request, current_user: dict = Depends(get_current_u
 
     try:
 
-        # Validating role, If role is "Admin"  --> Then only they can watch Device Data page
+        # Validating role, If role is "Admin" or "Super Admin"  --> Then only they can watch Device Data page
         if current_user["role"]== "Admin" or current_user["role"] == 'Super Admin': 
             return template.TemplateResponse("DeviceData.html", {"request": request})
         
@@ -50,7 +50,7 @@ def post_device_data(request:Request,
                     current_user:dict = Depends(get_current_user_from_cookie)):
     try:
 
-        # Validating role, If role is "Admin"  --> Then only they can watch Device Data page
+        # Validating role, If role is "Admin" or "Super Admin" --> Then only they can watch Device Data page
         if current_user["role"]== "Admin" or current_user["role"] == 'Super Admin': 
             data=Device_Data.find({"Device_Id":device_id})
             # print(data)

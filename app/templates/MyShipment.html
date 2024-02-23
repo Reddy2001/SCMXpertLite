@@ -107,7 +107,7 @@
         <table>
             <thead>
                 <tr>
-                    <th id="display_heading">Email</th>
+                    <th id="display_heading">User Id</th>
                     <th>Shipment Number</th>
                     <th>Container Number</th>
                     <th>Route Details</th>
@@ -125,7 +125,7 @@
 
                 {% for items in ShipmentData %}
                 <tr>
-                    <td data-label="Email" id="display_Email">{{ items.Email }}</td>
+                    <td data-label="Id" id="userID">{{ items.Id }}</td>
                     <td data-label="Shipment_Number">{{ items.ShipmentNumber }}</td>
                     <td data-label="Container Number">{{ items.ContainerNumber }}</td>
                     <td data-label="Route Details">{{ items.RouteDetails }}</td>

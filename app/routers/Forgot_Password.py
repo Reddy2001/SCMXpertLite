@@ -93,6 +93,7 @@ async def post_forgot_password(request: Request,email: str=Form(...)):
             otp_number(otp)
             email_id(receiver_email)
 
+
             print("Receiver mail",receiver_email)
 
             '''   

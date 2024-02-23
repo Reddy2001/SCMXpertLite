@@ -13,7 +13,7 @@ from routers.authenticate_user import authenticate_user
 
 
 # importing Shipment variables in config file for Shipment Collection
-from  config.config import Shipment
+from  config.config import Shipment,Users
 
 # To create instance of APIRouter
 router = APIRouter()
@@ -39,7 +39,10 @@ def get_my_shipment(request: Request, current_user: dict = Depends(get_current_u
         
         # If the role is "User" --> Then the User can watch their Shipment Details
         else:
-            shipment_data=list(Shipment.find({"Email":current_user["email"]}))
+
+            # Getting id from database using email
+            user=Users.find_one({"Email":current_user["email"]})
+            shipment_data=list(Shipment.find({"Id":user['Id']}))
             return template.TemplateResponse("MyShipment.html", {"request": request,"ShipmentData":shipment_data, "name":current_user["username"],"role":current_user['role']})
         
     except Exception as e:

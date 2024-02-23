@@ -4,6 +4,9 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from passlib.context import CryptContext
 
+# importing random
+import random
+
 # importing UserDetails from models file
 from models.model import UserDetail
 
@@ -27,7 +30,12 @@ template = Jinja2Templates(directory="templates")
 router.mount("/static", StaticFiles(directory="static"), name="static")
 
 
+# Assigning register.html in register variable
 register_page="register.html"
+
+def id_generator():
+    return random.randint(1000000,9999999)
+    
 
 # Signup router to display register page
 @router.get("/signup")
@@ -39,9 +47,16 @@ def get_signup(request: Request):
 @router.post("/signup")
 def post_signup(request: Request, name: str = Form(...), mail: str = Form(...), password: str = Form(...), con_password: str = Form(...)):
     try:
+        id = id_generator()
+        # Checking that Id is unique or not
+        while True:
+            if Users.find_one({"Id":id}):
+                id=id_generator()
+            break
+
 
         # Schema for userDetails
-        data=UserDetail(UserName=name,Email=mail,Password=password,Role="User")
+        data=UserDetail(UserName=name,Email=mail,Password=password,Role="User",Id=id)
        
 
         # Checking password have capital letter, small letter and special character

@@ -34,7 +34,7 @@ def generate_fake_data():
     device=[1122334455, 6677889900]
 
     # choosing id 
-    device_id = int(random.choice(device))
+    device_id = str(random.choice(device))
 
     # Generate random Battery Level (assuming it's a percentage between 0 and 100)
     battery_level = round(random.uniform(0, 100), 2)

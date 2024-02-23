@@ -6,6 +6,7 @@ class UserDetail(BaseModel):
     Email: EmailStr
     Password: str
     Role: str
+    Id: int
 
     @validator('Password')
     def validate_password(cls,u):
@@ -15,7 +16,7 @@ class UserDetail(BaseModel):
 
 # Pydantic schema for the Shipments [It is used in new_shipment.py]
 class ShipmentDetails(BaseModel):
-    Email:str
+    Id:int
     ShipmentNumber: int
     ContainerNumber: int
     RouteDetails: str

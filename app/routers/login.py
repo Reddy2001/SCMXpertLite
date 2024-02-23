@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from fastapi import Request,Depends,Form
+from fastapi import Request,Depends,Form,HTTPException
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.security import OAuth2PasswordRequestForm
@@ -39,39 +39,44 @@ def get_signin(request: Request,error:str | None=None):
 
 # Signin route to take inputs from the login.html
 @router.post("/signin", response_class=HTMLResponse)
-async def signin(request: Request, forms: OAuth2PasswordRequestForm = Depends(),captcha:str = Form(...),original_captcha:str = Form(...)):
+async def signin(request: Request, forms: OAuth2PasswordRequestForm = Depends(),
+                 captcha:str = Form(...),
+                 original_captcha:str = Form(...)):
+    try:
 
-    # Storing the details of user based on emain entered by the user
-    user = Users.find_one({"Email": forms.username})
+        # Storing the details of user based on emain entered by the user
+        user = Users.find_one({"Email": forms.username})
 
-    # Validating email is exits in database 
-    if user==None:
-        return template.TemplateResponse(login,{"request":request, "message":"User doesn't exist...."})
-    
-    
-    elif (pwd_context.verify(forms.password,user["Password"])):
-        if original_captcha == captcha:
+        # Validating email is exits in database 
+        if user==None:
+            return template.TemplateResponse(login,{"request":request, "message":"User doesn't exist...."})
         
-            access_token = create_jwt_token(user)
-
-            response= RedirectResponse("/dashboard", status_code=302)
-
-
-            '''Here we are using Httponly flag, When the HttpOnly flag is set on a cookie,
-                it instructs the browser not to expose the cookie to client-side scripts (e.g., JavaScript).
-                This means that the cookie is only accessible by the server and cannot be read or modified by
-                client-side scripts running in the user's browser and we can also use "Secure" flag, The Secure 
-                flag indicates that the cookie should only be sent over secure connections (i.e., HTTPS). 
-                If a cookie has the Secure flag set and the connection is not secure, the browser will not send
-                the cookie in the request.'''
+        # Validating Password
+        elif (pwd_context.verify(forms.password,user["Password"])):
+            if original_captcha == captcha:
             
-            response.set_cookie(key="access_token", value=access_token, httponly=True)
+                access_token = create_jwt_token(user)
 
-            return response
+                response= RedirectResponse("/dashboard", status_code=302)
+
+
+                '''Here we are using Httponly flag, When the HttpOnly flag is set on a cookie,
+                    it instructs the browser not to expose the cookie to client-side scripts (e.g., JavaScript).
+                    This means that the cookie is only accessible by the server and cannot be read or modified by
+                    client-side scripts running in the user's browser and we can also use "Secure" flag, The Secure 
+                    flag indicates that the cookie should only be sent over secure connections (i.e., HTTPS). 
+                    If a cookie has the Secure flag set and the connection is not secure, the browser will not send
+                    the cookie in the request.'''
+                
+                response.set_cookie(key="access_token", value=access_token, httponly=True)
+
+                return response
+            else:
+                return template.TemplateResponse(login,{"request":request,"message":"Please enter Valid captcha"})
+        
+        # If user entered wrong password Error Message will be printed on login page
         else:
-            return template.TemplateResponse(login,{"request":request,"message":"Please enter Valid captcha"})
-    
-    # If user entered wrong password Error Message will be printed on login page
-    else:
-        return template.TemplateResponse(login,{"request":request, "message":"Email or Password is Incorrect...."})
-    
+            return template.TemplateResponse(login,{"request":request, "message":"Email or Password is Incorrect...."})
+        
+    except Exception:
+        raise HTTPException(status_code=500, detail="Internal Server Error") 

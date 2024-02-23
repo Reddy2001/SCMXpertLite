@@ -15,7 +15,7 @@ from routers.jwt import get_current_user_from_cookie
 from routers.authenticate_user import authenticate_user
 
 # importing Shipment variables in config file for Shipment Collection
-from  config.config import Shipment
+from  config.config import Shipment, Users
 
 # To create instance of APIRouter
 router = APIRouter()
@@ -53,8 +53,12 @@ def post_new_shipment(request: Request, shipment_number: int = Form(...),
                     current_user: dict = Depends(get_current_user_from_cookie)):
 
     try:
+
+        # Getting id from database using email
+        user=Users.find_one({"Email":current_user["email"]})
+
         # Schema for ShipmentDetails
-        new_shipment_data=ShipmentDetails(Email=current_user["email"],
+        new_shipment_data=ShipmentDetails(Id=user['Id'],
                                           ShipmentNumber=shipment_number,
                                           ContainerNumber=container_number,
                                           RouteDetails=route_details,

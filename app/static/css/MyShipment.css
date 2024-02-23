@@ -284,3 +284,12 @@ th{
     position: sticky;
     top: 0;
 }
+
+#display_heading{
+    background-color: rgb(50, 127, 241);
+}
+
+#userID{
+    background-color: rgb(233, 201, 98);
+    color: white;
+}
