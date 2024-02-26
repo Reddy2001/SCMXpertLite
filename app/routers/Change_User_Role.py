@@ -32,7 +32,9 @@ def get_change_user_role(request: Request,current_user: dict = Depends(get_curre
     try:
         # Except Admin anyone should not access that route
         if current_user["role"] != "Super Admin":
-            return template.TemplateResponse("Dashboard.html",{"request":request,"name":current_user['username'],"Error":"Only Super Admin can access Change User Role page","role":current_user['role']})
+            return template.TemplateResponse("Dashboard.html",{"request":request,"name":current_user['username'],
+                                                               "Error":"Only Super Admin can access Change User Role page",
+                                                               "role":current_user['role']})
         
         return template.TemplateResponse(change_user_role, {"request": request,"name":current_user['username']})
     except Exception as e:
@@ -68,10 +70,13 @@ def post_change_user_role(request: Request,
 
                 #Updating the role on the database
                 Users.update_one({"Email": user["Email"]} , {"$set": {"Role": "Admin"}})
+                
                 return template.TemplateResponse(change_user_role,{"request":request,"name":current_user['username'],"message": "Successfully Changed role of User"})
             
         else:
-            return template.TemplateResponse("Dashboard.html",{"request":request,"name":current_user['username'],"Error":"Only Super Admin can access Change User Role page","role":current_user['role']})
+            return template.TemplateResponse("Dashboard.html",{"request":request,"name":current_user['username'],
+                                                               "Error":"Only Super Admin can access Change User Role page",
+                                                               "role":current_user['role']})
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}") 
 

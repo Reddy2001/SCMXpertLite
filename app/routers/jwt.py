@@ -31,7 +31,7 @@ def create_jwt_token(user):
 
 '''Decoding JWT Token'''
 
-# getting the JWT token using oauth2_scheme to decode it 
+# getting the JWT token to decode it 
 def get_current_user(token: str ):
 
     try:
